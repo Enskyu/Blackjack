@@ -21,7 +21,7 @@ public class Deck{
         }
     }
 
-    public static ArrayList<Card> getDeck(){
+    public ArrayList<Card> getDeck(){
         return cards;
     }
     
@@ -29,7 +29,8 @@ public class Deck{
         Collections.shuffle(cards);
     }
     
-    public static Card drawCard() {
+    public Card drawCard() {
         return cards.remove(0);
     }
+  
 }
