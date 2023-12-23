@@ -3,7 +3,10 @@ import java.util.Scanner;
 public class Player {
   Scanner sc = new Scanner(System.in);
   private ArrayList<Card> hand;
-  public Player() {
+  private String name;
+
+  public Player(String name) {
+    this.name = name;
     hand = new ArrayList<>();
   }
   
@@ -12,10 +15,11 @@ public class Player {
   }
 
   public void showHand() {
-    System.out.println("Your current hand: ");
+    System.out.println(name + "current hand: ");
     for (Card card : hand) {
       System.out.print(card.toString() + " ");
     }
+    System.out.println();
   }
 
   
@@ -47,6 +51,10 @@ public class Player {
   //temp drawCard method
   public String drawCard(){
     return "";
+  }
+
+  public ArrayList<Card> getHand(){
+    return hand;
   }
 
 }

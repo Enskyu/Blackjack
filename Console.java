@@ -1,5 +1,11 @@
 import java.util.Scanner;
 public class Console {
+    private Deck deck;
+    private Player p1;
+    private Computer computer;
+    private Money money;
+    private Scanner sc;
+
 
   //constructor
   //game start message
@@ -8,9 +14,13 @@ public class Console {
   //receive the card value / call getcardvalue from other classes
 
     public Console(){
+        deck = new Deck();
+        computer = new Computer();
+        money = new Money();
+        sc = new Scanner(System.in);
         startMessage();
-        displayCards();
         initialBetMessage();
+        displayCards();
         startGame();
     }
 
@@ -19,22 +29,16 @@ public class Console {
     }
 
     public void startGame(){
-        Player p1 = new Player();
-        Deck deck = new Deck();
-        Computer computer = new Computer();
-        Money money = new Money();
         System.out.println("You have $" + String.valueOf(money.getBalance()));
-        // Start scanner
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter your bet:");
-        int bet = sc.nextInt();
-        money.initialBet(bet);
+        System.out.println("What is your name?");
+        String name = sc.nextLine();
+        p1 = new Player(name);
         p1.addCard(deck.drawCard());
         p1.addCard(deck.drawCard());
         p1.showHand();
         System.out.println("would you like to double down?");
         String dd = sc.nextLine();
-        if (dd == "yes"){
+        if (dd.equals("yes")){
           money.doubleDown();
         }
        
@@ -46,7 +50,7 @@ public class Console {
             String action = sc.nextLine();
             // if player hits, add card to hand and show hand
             if (action.equals("hit")){
-                p1.addCard(drawCard());
+                p1.addCard(deck.drawCard());
                 p1.showHand();
             } else if (action.equals("stand")){
                 System.out.println("You chose to stand.");
@@ -56,18 +60,18 @@ public class Console {
         // if player stands, computer draws AND show second card
         computer.showHand();
         while(computer.getHandValue() < 17){
-            computer.addCard(drawCard());
+            computer.addCard(deck.drawCard());
             computer.showHand();
         }
         if(computer.isBust()){
             System.out.println("Computer busts. You win!");
             money.playerWin();
         } else if(p1.getHandValue() > computer.getHandValue()){
-          System.out.println("You win!");
-          money.playerWin();
+            System.out.println("You win!");
+            money.playerWin();
         } else if (p1.getHandValue() <= computer.getHandValue()){
-          System.out.println("You lose");
-          money.playerLose();
+            System.out.println("You lose");
+            money.playerLose();
         }
             
         //if player has blackjack (21), player wins
@@ -87,10 +91,9 @@ public class Console {
 
     public void initialBetMessage() {
         System.out.println("Enter your initial bet");
-        Scanner sc = new Scanner(System.in);
-        int value = sc.nextInt();
-        sc.close();
-
+        int value;
+        value = sc.nextInt();
+        money.initialBet(value);
     }
 
     public String displayCards() { 
@@ -99,7 +102,7 @@ public class Console {
 
     public String remainingCards(){
         //should we return the cards after we draw card? so use drawCard method first?
-        return "The remaining cards are: " + Deck.getDeck();
+        return "The remaining cards are: " + deck.getDeck();
     }
 
     public String displayCardValue(Player player){
