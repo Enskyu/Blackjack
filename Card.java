@@ -1,3 +1,5 @@
+// https://www.youtube.com/watch?v=GMdgjaDdOjI     youtube tutorial
+//https://github.com/ImKennyYip/blackjack-java     cards visuals for later
 public class Card {
     private String suit;
     private String num;
@@ -25,12 +27,7 @@ public class Card {
         }
     }
 
-    public int fixAceValue(int currentHandValue) {
-        if (num.equals("A") && currentHandValue > 21) {
-            return 1; // Change the value of Ace from 11 to 1
-        } else {
-            return getValue();
-        }
+    public String toString() {
+        return num + " of " + suit;
     }
-  
 }

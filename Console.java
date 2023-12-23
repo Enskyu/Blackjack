@@ -9,24 +9,28 @@ public class Console {
 
     public Console(){
         startMessage();
-        //initialBetMessage()
-        //scan for bet
         displayCards();
+        initialBetMessage();
+        startGame();
+    }
+
+    public void startMessage(){
+        System.out.println("The Blackjack game starts now.");
     }
 
     public void startGame(){
-        startMessage();
         Player p1 = new Player();
         Deck deck = new Deck();
         Computer computer = new Computer();
         Money money = new Money();
+        System.out.println("You have $" + String.valueOf(money.getBalance()));
         // Start scanner
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter your bet:");
         int bet = sc.nextInt();
         money.initialBet(bet);
-        p1.addCard(drawCard());
-        p1.addCard(drawCard());
+        p1.addCard(deck.drawCard());
+        p1.addCard(deck.drawCard());
         p1.showHand();
         System.out.println("would you like to double down?");
         String dd = sc.nextLine();
@@ -50,29 +54,22 @@ public class Console {
             }
         }
         // if player stands, computer draws AND show second card
-        while(computer.getHandValue() < 21){
+        computer.showHand();
+        while(computer.getHandValue() < 17){
+            computer.addCard(drawCard());
             computer.showHand();
-             //computer hits until they have at least 17
-            if(computer.getHandValue() < 17){
-                computer.addCard(drawCard());
-                computer.showHand();
-                // compares player and computer hand values  
-                // if player value > computer, player wins       GAME OVER
-                // if player value <= computer, player loses      GAME OVER
-            }
-            if(computer.isBust()){
-                System.out.println("Computer busts. You win!");
-                money.win();
-            }
-            if(p1.getHandValue() > computer.getHandValue()){
-              System.out.println("You win!");
-              money.playerWin();
-            } else if (p1.getHandValue() <= computer.getHandValue()){
-              System.out.println("You lose");
-              money.playerLose();
-            }
-            
         }
+        if(computer.isBust()){
+            System.out.println("Computer busts. You win!");
+            money.playerWin();
+        } else if(p1.getHandValue() > computer.getHandValue()){
+          System.out.println("You win!");
+          money.playerWin();
+        } else if (p1.getHandValue() <= computer.getHandValue()){
+          System.out.println("You lose");
+          money.playerLose();
+        }
+            
         //if player has blackjack (21), player wins
         if (p1.getHandValue() == 21){
             System.out.println("Blackjack!");
@@ -86,14 +83,9 @@ public class Console {
             System.out.println("Computer busts! You Win!!! :)");
             money.playerWin();
         }
-
     }
 
-    public static void startMessage() {
-        System.out.println("The Blackjack game starts now.");
-    }
-
-    public static void initialBetMessage() {
+    public void initialBetMessage() {
         System.out.println("Enter your initial bet");
         Scanner sc = new Scanner(System.in);
         int value = sc.nextInt();

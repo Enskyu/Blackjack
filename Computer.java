@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import Card.java.Card;
 
-public class Computer {
+public class Computer extends Player{
   private ArrayList<Card> hand;
   public Computer() {
     hand = new ArrayList<>();
