@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import Card.java.Card;
 
 public class Computer extends Player{
   private ArrayList<Card> hand;
   public Computer() {
-    hand = new ArrayList<>();
+    super("Computer");
+    hand = super.getHand();
   }
 
   public void addCard(Card card) {

@@ -93,6 +93,7 @@ public class Console {
         System.out.println("Enter your initial bet");
         int value;
         value = sc.nextInt();
+        sc.nextLine();
         money.initialBet(value);
     }
 
