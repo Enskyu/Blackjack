@@ -32,10 +32,14 @@ public class Console {
         System.out.println("You have $" + String.valueOf(money.getBalance()));
         System.out.println("What is your name?");
         String name = sc.nextLine();
+        System.out.println("------------------------------------");
         p1 = new Player(name);
         p1.addCard(deck.drawCard());
         p1.addCard(deck.drawCard());
         p1.showHand();
+        computer.addCard(deck.drawCard());
+        computer.showHand();
+        computer.addCard(deck.drawCard());
         System.out.println("would you like to double down?");
         String dd = sc.nextLine();
         if (dd.equals("yes")){
@@ -46,46 +50,43 @@ public class Console {
         // for loop conditionals
         //if player has less than 21, player can hit or stand (do nothing and wait for computer)
         while(p1.getHandValue() < 21){
+            System.out.println("------------------------------------");
             System.out.println("Would you like to hit or stand?");
             String action = sc.nextLine();
             // if player hits, add card to hand and show hand
             if (action.equals("hit")){
                 p1.addCard(deck.drawCard());
                 p1.showHand();
+                computer.addCard(deck.drawCard());
+                computer.showHand();
             } else if (action.equals("stand")){
                 System.out.println("You chose to stand.");
+                computer.showHand();
+                while(computer.getHandValue() < 17){
+                    computer.addCard(deck.drawCard());
+                    computer.showHand();
+                }
                 break;
             }
         }
         // if player stands, computer draws AND show second card
-        computer.showHand();
-        while(computer.getHandValue() < 17){
-            computer.addCard(deck.drawCard());
-            computer.showHand();
-        }
+        // computer.showHand();
+        // while(computer.getHandValue() < 17){
+        //     computer.addCard(deck.drawCard());
+        //     computer.showHand();
+        // }
         if(computer.isBust()){
             System.out.println("Computer busts. You win!");
             money.playerWin();
+        } else if (p1.getHandValue() == 21) {
+            System.out.println("Blackjack!");
+            money.BlackJack();
         } else if(p1.getHandValue() > computer.getHandValue()){
             System.out.println("You win!");
             money.playerWin();
-        } else if (p1.getHandValue() <= computer.getHandValue()){
+        } else if (p1.getHandValue() <= computer.getHandValue() || p1.getHandValue() > 21){
             System.out.println("You lose");
             money.playerLose();
-        }
-            
-        //if player has blackjack (21), player wins
-        if (p1.getHandValue() == 21){
-            System.out.println("Blackjack!");
-            money.BlackJack();
-        //if player busts, player loses     GAME OVER
-        } else if (p1.getHandValue() > 21){
-            System.out.println("Bust! You lose.");
-            money.playerLose();
-        } else if (computer.getHandValue() > 21){
-            //if computer has more than 21, player wins        GAME OVER
-            System.out.println("Computer busts! You Win!!! :)");
-            money.playerWin();
         }
     }
 

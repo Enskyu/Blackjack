@@ -41,11 +41,11 @@ public class Computer extends Player{
     return getHandValue() == 21;
   }
 
-  public boolean computerAction() {
-    while (getHandValue() < 17) {
-      addCard(new Card());
-    }
-    return getHandValue() >= 17;
-  }
+  // public boolean computerAction() {
+  //   while (getHandValue() < 17) {
+  //     addCard(new Card());
+  //   }
+  //   return getHandValue() >= 17;
+  // }
 
 }

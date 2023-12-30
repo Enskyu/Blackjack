@@ -15,9 +15,9 @@ public class Player {
   }
 
   public void showHand() {
-    System.out.println(name + "current hand: ");
+    System.out.println(name + "'s current hand: ");
     for (Card card : hand) {
-      System.out.print(card.toString() + " ");
+      System.out.print(card.toString() + ", ");
     }
     System.out.println();
   }
