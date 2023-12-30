@@ -1,5 +1,5 @@
 
-
+// @Carter for money class
 public class Money {
   public int playerMoney = 1000;
   public int pool;

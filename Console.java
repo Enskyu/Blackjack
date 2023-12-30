@@ -42,6 +42,7 @@ public class Console {
         computer.addCard(deck.drawCard());
         System.out.println("would you like to double down?");
         String dd = sc.nextLine();
+        //TODO: finish writing doubleDown method
         if (dd.equals("yes")){
           money.doubleDown();
         }
@@ -61,21 +62,24 @@ public class Console {
                 computer.showHand();
             } else if (action.equals("stand")){
                 System.out.println("You chose to stand.");
-                computer.showHand();
-                while(computer.getHandValue() < 17){
-                    computer.addCard(deck.drawCard());
-                    computer.showHand();
-                }
+                // computer.showHand();
+                // while(computer.getHandValue() < 17){
+                //     computer.addCard(deck.drawCard());
+                //     computer.showHand();
+                // }
                 break;
             }
         }
         // if player stands, computer draws AND show second card
-        // computer.showHand();
-        // while(computer.getHandValue() < 17){
-        //     computer.addCard(deck.drawCard());
-        //     computer.showHand();
-        // }
-        if(computer.isBust()){
+        computer.showHand();
+        while(computer.getHandValue() < 17){
+            computer.addCard(deck.drawCard());
+            computer.showHand();
+        }
+        if(p1.getHandValue() > 21){
+            System.out.println("You lose");
+            money.playerLose();
+        } else if(computer.isBust()){
             System.out.println("Computer busts. You win!");
             money.playerWin();
         } else if (p1.getHandValue() == 21) {
