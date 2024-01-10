@@ -1,40 +1,102 @@
 import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
 public class Console {
     private Deck deck;
     private Player p1;
     private Computer computer;
     private Money money;
     private Scanner sc;
-    private String name;
-
-
   //constructor
   //game start message
   //display the two cards the player has and the first dealer card
   //actively show remaining cards in the deck
   //receive the card value / call getcardvalue from other classes
 
+    //window
+    int boardWidth = 600;
+    int boardHeight = boardWidth;
+
+    int cardWidth = 110; //1:1.4
+    int cardHeight = 154;
+  
+    JFrame frame = new JFrame("Black Jack");
+    JPanel gamePanel = new JPanel(){
+
+        
+        @Override
+        public void paintComponent(Graphics g){
+            super.paintComponent(g);
+    
+            try {
+                //draw hidden card
+                Image hiddenCardImg = new ImageIcon(getClass().getResource("./cards/BACK.png")).getImage();
+                g.drawImage(hiddenCardImg, 20, 20, cardWidth, cardHeight, null);
+    
+                //draw dealer's card
+                for(int i = 0; i < computer.getHand().size(); i++){
+                    Card card = computer.get(i);
+                    Image cardImg = new ImageIcon(getClass().getResource(card.getImagePath())).getImage();
+                    g.drawImage(cardImg, cardWidth + 25 + (cardWidth + 5)*i, 20, cardWidth, cardHeight, null);
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+    
+              
+        }
+    };
+    JPanel buttonPanel = new JPanel();
+    JButton hitButton = new JButton("Hit");
+    JButton standButton = new JButton("Stand");
+  
     public Console(){
         deck = new Deck();
         computer = new Computer();
         money = new Money();
-        System.out.println("What is your name?");
         sc = new Scanner(System.in);
-        name = sc.nextLine();
+      
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(boardWidth, boardHeight);
+        frame.setVisible(true);
+        frame.setResizable(true);
+        frame.setLocationRelativeTo(null);
+
+        gamePanel.setLayout(new BorderLayout());
+        gamePanel.setBackground(new Color(53, 101, 77));
+        frame.add(gamePanel);
+
+        hitButton.setFocusable(false);
+        buttonPanel.add(hitButton);
+        standButton.setFocusable(false);
+        buttonPanel.add(standButton);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+      
         startMessage();
         initialBetMessage();
         displayCards();
         startGame();
+
     }
 
     public void startMessage(){
+      
         System.out.println("The Blackjack game starts now.");
+        System.out.println("What is your name?");
+        String name = sc.nextLine();
+        p1 = new Player(name);
+        System.out.println("Welcome " + name + "! you have $" + String.valueOf(money.getBalance()));
     }
 
     public void startGame(){
-        System.out.println("You have $" + String.valueOf(money.getBalance()));
+        if (money.balCheck() == true) {
+          System.exit(0);
+        }
+        p1.clearHand();
+        computer.clearHand();
         System.out.println("------------------------------------");
-        p1 = new Player(name);
         p1.addCard(deck.drawCard());
         p1.addCard(deck.drawCard());
         p1.showHand();
@@ -47,7 +109,7 @@ public class Console {
         if (dd.equals("yes")){
           money.doubleDown();
         }
-       
+
         // computer shows first card
         // for loop conditionals
         //if player has less than 21, player can hit or stand (do nothing and wait for computer)
@@ -78,21 +140,22 @@ public class Console {
             computer.showHand();
         }
         if(p1.getHandValue() > 21){
-            System.out.println("You busted. Try again next time.");
+            System.out.println("You lose $" + money.getPool());
             money.playerLose();
         } else if(computer.isBust()){
-            System.out.println("Computer busts. You win!");
+            System.out.println("Computer busts. You win $" + money.getPool());
             money.playerWin();
         } else if (p1.getHandValue() == 21) {
-            System.out.println("Blackjack!");
+            System.out.println("Blackjack! You win $" + (money.getPool() * 1.5));
             money.BlackJack();
         } else if(p1.getHandValue() > computer.getHandValue()){
-            System.out.println("You win!");
+            System.out.println("You win $" + money.getPool());
             money.playerWin();
         } else if (p1.getHandValue() <= computer.getHandValue() || p1.getHandValue() > 21){
-            System.out.println("You lose");
+            System.out.println("You lose $" + money.getPool());
             money.playerLose();
         }
+      System.out.println("You now have $" + String.valueOf(money.getBalance()));
     }
 
     public void initialBetMessage() {
@@ -100,7 +163,13 @@ public class Console {
         int value;
         value = sc.nextInt();
         sc.nextLine();
-        money.initialBet(value);
+        if (money.checkBet(value) == false) {
+          money.initialBet(value);
+        }
+        else {
+          System.out.println("You cannot afford this bet. Enter a new bet");
+          initialBetMessage();
+        }
     }
 
     public String displayCards() { 
@@ -116,4 +185,5 @@ public class Console {
         // Player p1 = new Player();
         return "You have drawn a " + player.getHandValue();
     }
+      
 }

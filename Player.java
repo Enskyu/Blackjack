@@ -9,9 +9,13 @@ public class Player {
     this.name = name;
     hand = new ArrayList<>();
   }
-  
+
   public void addCard(Card card) {
     hand.add(card); 
+  }
+
+  public void clearHand() {
+    hand.clear();
   }
 
   public void showHand() {
@@ -22,7 +26,7 @@ public class Player {
     System.out.println();
   }
 
-  
+
   public int getHandValue() {
     int value = 0;
     int aceCount = 0;
@@ -55,6 +59,10 @@ public class Player {
 
   public ArrayList<Card> getHand(){
     return hand;
+  }
+
+  public Card get(int i){
+    return hand.get(i);
   }
 
 }

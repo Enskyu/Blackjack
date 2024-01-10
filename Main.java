@@ -7,11 +7,8 @@ public class Main {
         int length = sc.nextInt();
         sc.nextLine();
         Console game = new Console();
-
+        
         for(int i = 0; i < length; i++) {
-            // Scanner sc = new Scanner(System.in);
-            // String input = sc.nextLine();
-            // System.out.println("This is the input: " + input);
             game.startGame();
         }
     }

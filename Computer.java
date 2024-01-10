@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Computer extends Player{
   private ArrayList<Card> hand;
@@ -12,10 +11,14 @@ public class Computer extends Player{
     hand.add(card);
   }
 
+  public void clearHand() {
+    hand.clear();
+  }
+
   public void showFirst() {
     System.out.println("The first dealer card is " + hand.get(0));;
   }
-  
+
   public int getHandValue() {
     int value = 0;
     int aceCount = 0;

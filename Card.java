@@ -30,4 +30,8 @@ public class Card {
     public String toString() {
         return num + " of " + suit;
     }
+
+    public String getImagePath() {
+        return "./cards/" + toString() + ".png";
+    }
 }
