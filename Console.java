@@ -5,6 +5,7 @@ public class Console {
     private Computer computer;
     private Money money;
     private Scanner sc;
+    private String name;
 
 
   //constructor
@@ -17,7 +18,9 @@ public class Console {
         deck = new Deck();
         computer = new Computer();
         money = new Money();
+        System.out.println("What is your name?");
         sc = new Scanner(System.in);
+        name = sc.nextLine();
         startMessage();
         initialBetMessage();
         displayCards();
@@ -30,8 +33,6 @@ public class Console {
 
     public void startGame(){
         System.out.println("You have $" + String.valueOf(money.getBalance()));
-        System.out.println("What is your name?");
-        String name = sc.nextLine();
         System.out.println("------------------------------------");
         p1 = new Player(name);
         p1.addCard(deck.drawCard());
@@ -77,7 +78,7 @@ public class Console {
             computer.showHand();
         }
         if(p1.getHandValue() > 21){
-            System.out.println("You lose");
+            System.out.println("You busted. Try again next time.");
             money.playerLose();
         } else if(computer.isBust()){
             System.out.println("Computer busts. You win!");
