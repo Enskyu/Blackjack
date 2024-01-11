@@ -8,7 +8,7 @@ public class Main {
         sc.nextLine();
         Console game = new Console();
         
-        for(int i = 0; i < length; i++) {
+        for(int i = 0; i < length-1; i++) {
             game.startGame();
         }
     }

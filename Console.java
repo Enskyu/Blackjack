@@ -121,8 +121,8 @@ public class Console {
             if (action.equals("hit")){
                 p1.addCard(deck.drawCard());
                 p1.showHand();
-                computer.addCard(deck.drawCard());
                 computer.showHand();
+                computer.addCard(deck.drawCard());
             } else if (action.equals("stand")){
                 System.out.println("You chose to stand.");
                 // computer.showHand();
