@@ -67,11 +67,6 @@ public class Player {
     return getHandValue() == 21 && hand.size() == 2;
   }
 
-  //temp drawCard method
-  public String drawCard(){
-    return "";
-  }
-
   public ArrayList<Card> getHand(){
     return hand;
   }

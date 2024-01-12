@@ -9,6 +9,7 @@ public class Main extends JFrame{
     private Player player;
     private Console console;
     private SelectMoney selMon;
+
     public Main(){
         super("blackjack");
         deck = new Deck(); // Initalize deck
@@ -29,7 +30,7 @@ public class Main extends JFrame{
             deck = new Deck();
         }
         money.initialBet(bet);
-        player = new Player("Jason"); // heh don't worry about this for now. also u don't need this anymore because you can just say "player's hand"
+        player = new Player("x"); // heh don't worry about this for now. also u don't need this anymore because you can just say "player's hand"
         console = new Console(this, deck, money, player); // Initalize your class wooooo
     }
     public void gameDone(){

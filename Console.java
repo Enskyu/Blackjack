@@ -103,7 +103,7 @@ public class Console{
     buttonPanel.updateUI(); // Have to remove the button from the screen but updating the interface of the whole container
     if(act == 0){ // if double down button has been pressed
       // do stuff
-      return; // HAS TO RETURN so it dosn't contact the win checks below this line
+      return; // HAS TO RETURN so it doesn't contact the win checks below this line
     }
     if(act == 1){ // if Hit has been pressed
       p1.addCard(deck.drawCard()); // Give the player a card
