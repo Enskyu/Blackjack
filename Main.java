@@ -22,7 +22,7 @@ public class Main extends JFrame{
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-    
+
     public void startGame(int bet){ // called by button Button in SelectMoney.java ln 35
         this.getContentPane().removeAll(); // Clear all elements from the screen
         this.repaint(); // I have no clue what this does it works, don't touch it.
@@ -49,10 +49,6 @@ public class Main extends JFrame{
         this.repaint(); // again I have no idea what this does but it works.
         selMon = new SelectMoney(this, money.getBalance()); // Create a new screen for the betting to go onto.
         this.setVisible(true); // This line always has to go last.
-    }
-
-    public void loseScreen(){
-        JLabel label = new JLabel("Test");
     }
 
     public static void main(String[] args) {

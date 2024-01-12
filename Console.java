@@ -119,27 +119,27 @@ public class Console{
     if(p1.getHandValue() > 21){
       System.out.println("You lose $" + money.getPool());
       money.playerLose();
-      frame.loseScreen();
+      loseScreen();
       frame.gameDone();
     } else if(computer.isBust()){
       System.out.println("Computer busts. You win $" + money.getPool());
       money.playerWin();
-      frame.loseScreen();
+      loseScreen();
       frame.gameDone();
     } else if (p1.getHandValue() == 21) {
       System.out.println("Blackjack! You win $" + (money.getPool() * 1.5));
       money.BlackJack();
-      frame.loseScreen();
+      loseScreen();
       frame.gameDone();
     } else if(p1.getHandValue() > computer.getHandValue()){
       System.out.println("You win $" + money.getPool());
       money.playerWin();
-      frame.loseScreen();
+      loseScreen();
       frame.gameDone();
     } else if (p1.getHandValue() <= computer.getHandValue() || p1.getHandValue() > 21){
       System.out.println("You lose $" + money.getPool());
       money.playerLose();
-      frame.loseScreen();
+      loseScreen();
       frame.gameDone();
     }
   }
@@ -157,7 +157,10 @@ public class Console{
   }
 
   public void loseScreen(){
-        
+    System.out.println("called");
+    JLabel l = new JLabel("You lose", JLabel.CENTER);
+    l.setForeground(Color.white);
+    playerPanel.add(l);
+    playerPanel.updateUI();
   }
-
 }
