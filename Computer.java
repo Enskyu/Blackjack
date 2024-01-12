@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 import javax.swing.JPanel;
 
 public class Computer extends Player{

@@ -107,11 +107,11 @@ public class Console{
     }
     if(act == 1){ // if Hit has been pressed
       p1.addCard(deck.drawCard()); // Give the player a card
-      if(p1.getHandValue()<=21){ // TODO: Is this correct??? just less then or is it less then or equal to???
+      if(p1.getHandValue() < 21){
         return; // HAS TO RETURN so it dosn't contact the win checks below this line
       }
     }// If it wasn't those two methods it has to be stand.
-    computer.showHiddenCard(); // u wrote these lines mary u should know what they do
+    computer.showHiddenCard();
     while(computer.getHandValue() < 17){
       computer.addCard(deck.drawCard());
       computer.showHand();
@@ -119,22 +119,27 @@ public class Console{
     if(p1.getHandValue() > 21){
       System.out.println("You lose $" + money.getPool());
       money.playerLose();
+      frame.loseScreen();
       frame.gameDone();
     } else if(computer.isBust()){
       System.out.println("Computer busts. You win $" + money.getPool());
       money.playerWin();
+      frame.loseScreen();
       frame.gameDone();
     } else if (p1.getHandValue() == 21) {
       System.out.println("Blackjack! You win $" + (money.getPool() * 1.5));
       money.BlackJack();
+      frame.loseScreen();
       frame.gameDone();
     } else if(p1.getHandValue() > computer.getHandValue()){
       System.out.println("You win $" + money.getPool());
       money.playerWin();
+      frame.loseScreen();
       frame.gameDone();
     } else if (p1.getHandValue() <= computer.getHandValue() || p1.getHandValue() > 21){
       System.out.println("You lose $" + money.getPool());
       money.playerLose();
+      frame.loseScreen();
       frame.gameDone();
     }
   }
@@ -150,4 +155,9 @@ public class Console{
     computer.addCard(deck.drawCard().setHidden()); // See the sethidden method in Card.java ln 51
     computer.addCard(deck.drawCard());
   }
+
+  public void loseScreen(){
+        
+  }
+
 }

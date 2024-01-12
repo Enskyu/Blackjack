@@ -22,6 +22,7 @@ public class Main extends JFrame{
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
+    
     public void startGame(int bet){ // called by button Button in SelectMoney.java ln 35
         this.getContentPane().removeAll(); // Clear all elements from the screen
         this.repaint(); // I have no clue what this does it works, don't touch it.
@@ -30,9 +31,10 @@ public class Main extends JFrame{
             deck = new Deck();
         }
         money.initialBet(bet);
-        player = new Player("x"); // heh don't worry about this for now. also u don't need this anymore because you can just say "player's hand"
+        player = new Player("Player"); // heh don't worry about this for now. also u don't need this anymore because you can just say "player's hand"
         console = new Console(this, deck, money, player); // Initalize your class wooooo
     }
+
     public void gameDone(){
         this.addMouseListener(new MouseAdapter() { // Called in method playerAction in Console.java
             public void mousePressed(MouseEvent e){ // Purpose is to detect a click anywhere on the screen and continue by calling the bet money screen up again
@@ -40,12 +42,17 @@ public class Main extends JFrame{
             }
         });
     }
+
     public void selectMoney(MouseAdapter e){ // called by gameDone method in Main.java ln 38
         this.removeMouseListener(e); // remove the mouse listener to prevent progress of the user being reset. (if the user is in the middle of clicking a bet and the screen resets because of the click listener it's bad)
         this.getContentPane().removeAll();// Clear all the contents of the screen
         this.repaint(); // again I have no idea what this does but it works.
         selMon = new SelectMoney(this, money.getBalance()); // Create a new screen for the betting to go onto.
         this.setVisible(true); // This line always has to go last.
+    }
+
+    public void loseScreen(){
+        JLabel label = new JLabel("Test");
     }
 
     public static void main(String[] args) {
