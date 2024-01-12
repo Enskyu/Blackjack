@@ -1,189 +1,153 @@
-import java.util.Scanner;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Console {
-    private Deck deck;
-    private Player p1;
-    private Computer computer;
-    private Money money;
-    private Scanner sc;
+public class Console{
+  private Main frame; // The frame for the game to go onto. Remember that Main extends JFrame
+  private Deck deck; // The deck that this game is using (a deck can be used in multiple games of blackjack and is given by the constructor ln 34)
+  private Player p1; // The player object for this game also given through the constructor ln 34
+  private Computer computer; // The computer object for this game, intalized ln 39
+  private Money money; // The money (or I like to call it the pool of this class given through constructor in ln 34)
   //constructor
   //game start message
   //display the two cards the player has and the first dealer card
   //actively show remaining cards in the deck
   //receive the card value / call getcardvalue from other classes
 
-    //window
-    int boardWidth = 600;
-    int boardHeight = boardWidth;
+  //window
+  int boardWidth = 600;
+  int boardHeight = boardWidth;
 
-    int cardWidth = 110; //1:1.4
-    int cardHeight = 154;
+  int cardWidth = 110; //1:1.4
+  int cardHeight = 154;
+
+  JPanel gamePanel = new JPanel(); // THe main container that blackjack is going to go onto.
+
+  JPanel buttonPanel = new JPanel(); // The container for containing the buttons at the bottom of the screen
+  JButton hitButton = new JButton("Hit"); // The hit button
+  JButton standButton = new JButton("Stand"); // The stand button
+  JButton doubleDowButton = new JButton("Double Down"); // the double down button
+  JPanel playerPanel = new JPanel(); // The container for the player's cards
+  JPanel computerPanel = new JPanel(); // The container for the computer's cards
+
   
-    JFrame frame = new JFrame("Black Jack");
-    JPanel gamePanel = new JPanel(){
+  public Console(Main f, Deck deck, Money money, Player player){
+    frame = f;
+    this.deck = deck;
+    this.money = money;
+    p1 = player;
+    computer = new Computer(computerPanel);
 
-        
-        @Override
-        public void paintComponent(Graphics g){
-            super.paintComponent(g);
-    
-            try {
-                //draw hidden card
-                Image hiddenCardImg = new ImageIcon(getClass().getResource("./cards/BACK.png")).getImage();
-                g.drawImage(hiddenCardImg, 20, 20, cardWidth, cardHeight, null);
-    
-                //draw dealer's card
-                for(int i = 0; i < computer.getHand().size(); i++){
-                    Card card = computer.get(i);
-                    Image cardImg = new ImageIcon(getClass().getResource(card.getImagePath())).getImage();
-                    g.drawImage(cardImg, cardWidth + 25 + (cardWidth + 5)*i, 20, cardWidth, cardHeight, null);
-                }
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-    
-              
+    frame.setLayout(new BorderLayout()); // Sets the frame to a border layout, basically elements can be put in quadronts n, s, e, w and center
+    gamePanel.setLayout(new GridLayout(2, 1)); // Get two rows in the game container, top for the dealer, bottom for the player.
+    frame.add(gamePanel, BorderLayout.CENTER); // Add the game panel to the screen putting it in the center of the screen
+
+    gamePanel.add(computerPanel); // Add the computer's panel into the game panel (it auto goes into top because taht's the next avaliable space in the gridlayout)
+    computerPanel.setLayout(new GridLayout(0, 5, 10, 10)); // Give 5 card slots to the computer container
+    computerPanel.setBackground(new Color(53, 101, 77)); // Set the background of the computers panel to dark green
+    gamePanel.add(playerPanel); // Add the computer's panel to the game container
+    playerPanel.setLayout(new GridLayout(0, 5, 10, 10)); // give 5 card slots to the player's container
+    playerPanel.setBackground(new Color(53, 101, 77)); // Set the background of the computer's panel to dark green
+    p1.setPanel(playerPanel); // Add the player panel to the game container.
+
+    hitButton.setFocusable(false); // I have no idea what this does and it dosn't seem to make a diff anyways
+    buttonPanel.add(hitButton); // Add this button to the buttonpanel container.
+    standButton.setFocusable(false);
+    buttonPanel.add(standButton); // Add this button to the buttonpanel container.
+    doubleDowButton.setFocusable(false);
+    buttonPanel.add(doubleDowButton); // Add this button to the buttonpanel container.
+    frame.add(buttonPanel, BorderLayout.SOUTH); // Add the buttonpanel container to the bottom of the screen (south quadrant)
+
+    /*
+     * Long explination of the listeners below
+     * 
+     * basically the Mouseadapter class has a method called mousePressed that will be called when the mouse is presssed
+     * in the code we are overriding it to do what we want it to do 
+     * 
+     * button1 just means left click,
+     * button3 is right click
+     * button2 means middle click.
+     */
+
+    hitButton.addMouseListener(new MouseAdapter() { // Add a mouse listener to the hit button 
+      @Override
+      public void mousePressed(MouseEvent e){ // Overwrite the native method in the MouseAdapter class
+        if(e.getButton() == MouseEvent.BUTTON1){ // Check that the button has been leftclicked
+          playerAction(1); // Call the playeraction method with the act being left click or 1
         }
-    };
-    JPanel buttonPanel = new JPanel();
-    JButton hitButton = new JButton("Hit");
-    JButton standButton = new JButton("Stand");
-  
-    public Console(){
-        deck = new Deck();
-        computer = new Computer();
-        money = new Money();
-        sc = new Scanner(System.in);
-      
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(boardWidth, boardHeight);
-        frame.setVisible(true);
-        frame.setResizable(true);
-        frame.setLocationRelativeTo(null);
+      }
+    });
+    standButton.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e){
+        if(e.getButton() == MouseEvent.BUTTON1){
+          playerAction(2);
+        }
+      }
+    });
 
-        gamePanel.setLayout(new BorderLayout());
-        gamePanel.setBackground(new Color(53, 101, 77));
-        frame.add(gamePanel);
+    doubleDowButton.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e){
+        if(e.getButton() == MouseEvent.BUTTON1){
+          playerAction(0);
+        }
+      }
+    });
 
-        hitButton.setFocusable(false);
-        buttonPanel.add(hitButton);
-        standButton.setFocusable(false);
-        buttonPanel.add(standButton);
-        frame.add(buttonPanel, BorderLayout.SOUTH);
-      
-        startMessage();
-        initialBetMessage();
-        displayCards();
-        startGame();
+    startGame();
+  }
 
+  private void playerAction(int act){
+    buttonPanel.remove(doubleDowButton); // the double down button should only be there when the player has two cards, as soon as the player does an action the button is removed from the button panel
+    buttonPanel.updateUI(); // Have to remove the button from the screen but updating the interface of the whole container
+    if(act == 0){ // if double down button has been pressed
+      // do stuff
+      return; // HAS TO RETURN so it dosn't contact the win checks below this line
     }
-
-    public void startMessage(){
-      
-        System.out.println("The Blackjack game starts now.");
-        System.out.println("What is your name?");
-        String name = sc.nextLine();
-        p1 = new Player(name);
-        System.out.println("Welcome " + name + "! you have $" + String.valueOf(money.getBalance()));
+    if(act == 1){ // if Hit has been pressed
+      p1.addCard(deck.drawCard()); // Give the player a card
+      if(p1.getHandValue()<=21){ // TODO: Is this correct??? just less then or is it less then or equal to???
+        return; // HAS TO RETURN so it dosn't contact the win checks below this line
+      }
+    }// If it wasn't those two methods it has to be stand.
+    computer.showHiddenCard(); // u wrote these lines mary u should know what they do
+    while(computer.getHandValue() < 17){
+      computer.addCard(deck.drawCard());
+      computer.showHand();
     }
-
-    public void startGame(){
-        if (money.balCheck() == true) {
-          System.exit(0);
-        }
-        p1.clearHand();
-        computer.clearHand();
-        System.out.println("------------------------------------");
-        p1.addCard(deck.drawCard());
-        p1.addCard(deck.drawCard());
-        p1.showHand();
-        computer.addCard(deck.drawCard());
-        computer.showHand();
-        computer.addCard(deck.drawCard());
-        System.out.println("would you like to double down?");
-        String dd = sc.nextLine();
-        //TODO: finish writing doubleDown method
-        if (dd.equals("yes")){
-          money.doubleDown();
-        }
-
-        // computer shows first card
-        // for loop conditionals
-        //if player has less than 21, player can hit or stand (do nothing and wait for computer)
-        while(p1.getHandValue() < 21){
-            System.out.println("------------------------------------");
-            System.out.println("Would you like to hit or stand?");
-            String action = sc.nextLine();
-            // if player hits, add card to hand and show hand
-            if (action.equals("hit")){
-                p1.addCard(deck.drawCard());
-                p1.showHand();
-                computer.showHand();
-                computer.addCard(deck.drawCard());
-            } else if (action.equals("stand")){
-                System.out.println("You chose to stand.");
-                // computer.showHand();
-                // while(computer.getHandValue() < 17){
-                //     computer.addCard(deck.drawCard());
-                //     computer.showHand();
-                // }
-                break;
-            }
-        }
-        // if player stands, computer draws AND show second card
-        computer.showHand();
-        while(computer.getHandValue() < 17){
-            computer.addCard(deck.drawCard());
-            computer.showHand();
-        }
-        if(p1.getHandValue() > 21){
-            System.out.println("You lose $" + money.getPool());
-            money.playerLose();
-        } else if(computer.isBust()){
-            System.out.println("Computer busts. You win $" + money.getPool());
-            money.playerWin();
-        } else if (p1.getHandValue() == 21) {
-            System.out.println("Blackjack! You win $" + (money.getPool() * 1.5));
-            money.BlackJack();
-        } else if(p1.getHandValue() > computer.getHandValue()){
-            System.out.println("You win $" + money.getPool());
-            money.playerWin();
-        } else if (p1.getHandValue() <= computer.getHandValue() || p1.getHandValue() > 21){
-            System.out.println("You lose $" + money.getPool());
-            money.playerLose();
-        }
-      System.out.println("You now have $" + String.valueOf(money.getBalance()));
+    if(p1.getHandValue() > 21){
+      System.out.println("You lose $" + money.getPool());
+      money.playerLose();
+      frame.gameDone();
+    } else if(computer.isBust()){
+      System.out.println("Computer busts. You win $" + money.getPool());
+      money.playerWin();
+      frame.gameDone();
+    } else if (p1.getHandValue() == 21) {
+      System.out.println("Blackjack! You win $" + (money.getPool() * 1.5));
+      money.BlackJack();
+      frame.gameDone();
+    } else if(p1.getHandValue() > computer.getHandValue()){
+      System.out.println("You win $" + money.getPool());
+      money.playerWin();
+      frame.gameDone();
+    } else if (p1.getHandValue() <= computer.getHandValue() || p1.getHandValue() > 21){
+      System.out.println("You lose $" + money.getPool());
+      money.playerLose();
+      frame.gameDone();
     }
+  }
 
-    public void initialBetMessage() {
-        System.out.println("Enter your initial bet");
-        int value;
-        value = sc.nextInt();
-        sc.nextLine();
-        if (money.checkBet(value) == false) {
-          money.initialBet(value);
-        }
-        else {
-          System.out.println("You cannot afford this bet. Enter a new bet");
-          initialBetMessage();
-        }
+  public void startGame(){
+    if (money.balCheck() == true) {
+      System.exit(0);
     }
-
-    public String displayCards() { 
-      return "";
-    }
-
-    public String remainingCards(){
-        //should we return the cards after we draw card? so use drawCard method first?
-        return "The remaining cards are: " + deck.getDeck();
-    }
-
-    public String displayCardValue(Player player){
-        // Player p1 = new Player();
-        return "You have drawn a " + player.getHandValue();
-    }
-      
+    p1.clearHand();
+    computer.clearHand(); // I don't think this is nessasary because the computer has just been initalized and dosn't have a hand
+    p1.addCard(deck.drawCard());
+    p1.addCard(deck.drawCard());
+    computer.addCard(deck.drawCard().setHidden()); // See the sethidden method in Card.java ln 51
+    computer.addCard(deck.drawCard());
+  }
 }

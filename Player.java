@@ -1,17 +1,32 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JPanel;
+
 public class Player {
   Scanner sc = new Scanner(System.in);
   private ArrayList<Card> hand;
   private String name;
+  private JPanel panel;
 
   public Player(String name) {
     this.name = name;
     hand = new ArrayList<>();
   }
 
+  public Player(String name, JPanel p){
+    this.name = name;
+    panel = p;
+    hand = new ArrayList<>();
+  }
+
+  public void setPanel(JPanel p){
+    panel = p;
+  }
+
   public void addCard(Card card) {
-    hand.add(card); 
+    hand.add(card);
+    panel.add(hand.get(hand.size()-1));
+    panel.updateUI();
   }
 
   public void clearHand() {

@@ -1,14 +1,20 @@
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 public class Computer extends Player{
   private ArrayList<Card> hand;
-  public Computer() {
-    super("Computer");
+  private JPanel panel;
+  public Computer(JPanel p) {
+    super("Computer", p);
     hand = super.getHand();
+    panel = p;
   }
 
   public void addCard(Card card) {
     hand.add(card);
+    panel.add(hand.get(hand.size()-1));
+    panel.updateUI();
   }
 
   public void clearHand() {
@@ -17,6 +23,10 @@ public class Computer extends Player{
 
   public void showFirst() {
     System.out.println("The first dealer card is " + hand.get(0));;
+  }
+
+  public void showHiddenCard(){
+    hand.get(0).reveal();
   }
 
   public int getHandValue() {

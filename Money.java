@@ -1,6 +1,7 @@
 
 // @Carter for money class
-public class Money {
+
+public class Money{
   public int playerMoney = 1000;
   public int pool;
   public boolean gameover = false;
