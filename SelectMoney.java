@@ -1,4 +1,7 @@
 import javax.swing.*;
+
+import javafx.scene.text.Font;
+
 import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -11,21 +14,30 @@ public class SelectMoney extends JPanel{
   private int balance;
   Button money;
   public boolean gameover = false;
+  private JLabel placeBetsLabel;
 
   public SelectMoney(Main f, int playerBalance){
     frame = f;
     balance = playerBalance;
     coins = new ArrayList<>(); // Create a array to store the clips that the user wants to bid so that when u add or remove a chip we can keep track of how much to add or remove.
     coins.add(100); // the default bet is 100 in early game but it changes TODO: change this to implement it properly.
+
+    placeBetsLabel = new JLabel("Place your bets");
+    add(placeBetsLabel);
+
     bal = new JLabel(Integer.toString(balance-bet)); // Display the user's balance to the user
     this.add(bal); // Add that balance to the screen
-    money = new Button(-100, this); // I know it's confusing but this is actually how the user will see how much they have bet, clicking this removes the latest chip they added.
+    money = new Button(-100, this); //clicking this removes the latest chip they added.
     money.setText(Integer.toString(bet)); // Set the text of that button to the user's bet amount
+
     Button add1Button = new Button(1, this); // a button to add a 1 chip to the bet
     Button add5Button = new Button(5, this); // a button to add a 5 chip to the bet
-    Button add25Button = new Button(25, this); // a button to add a 25 chip to the bet
-    Button add50Button = new Button(50, this); // a button to add a 50 chip to the bet
-    Button add100Button = new Button(100, this); // a button to add a 100 chip to the bet
+    Button add25Button = new Button(25, this); 
+    Button add50Button = new Button(50, this); 
+    Button add100Button = new Button(100, this); 
+    
+    //TODO: Make buttons bigger...
+
     JButton button = new JButton("deal"); // the button to start the actual game
     button.addMouseListener(new MouseAdapter() { // set up a mouselistener to the start button to make it work
       public void mousePressed(MouseEvent e){
@@ -36,7 +48,7 @@ public class SelectMoney extends JPanel{
     frame.add(this); // add the whole bet money container to the frame.
   }
 
-  public class Button extends JButton{ // Was to lazy to make so many listeners to made a lil class for it.
+  public class Button extends JButton{ 
     private int amt; // the amount to change it by/
     public Button(int amt, JPanel p){
       super(Integer.toString(amt)); // Create a button object with the chamge anount as the text displaied

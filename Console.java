@@ -124,17 +124,17 @@ public class Console{
     } else if(computer.isBust()){
       System.out.println("Computer busts. You win $" + money.getPool());
       money.playerWin();
-      loseScreen();
+      winScreen();
       frame.gameDone();
     } else if (p1.getHandValue() == 21) {
       System.out.println("Blackjack! You win $" + (money.getPool() * 1.5));
       money.BlackJack();
-      loseScreen();
+      blackjackScreen();
       frame.gameDone();
     } else if(p1.getHandValue() > computer.getHandValue()){
       System.out.println("You win $" + money.getPool());
       money.playerWin();
-      loseScreen();
+      winScreen();
       frame.gameDone();
     } else if (p1.getHandValue() <= computer.getHandValue() || p1.getHandValue() > 21){
       System.out.println("You lose $" + money.getPool());
@@ -157,10 +157,35 @@ public class Console{
   }
 
   public void loseScreen(){
-    System.out.println("called");
+    playerPanel.removeAll();
+    playerPanel.setLayout(new BorderLayout());
     JLabel l = new JLabel("You lose", JLabel.CENTER);
     l.setForeground(Color.white);
-    playerPanel.add(l);
+    l.setFont(new Font("Arial", Font.BOLD, 40));
+    playerPanel.add(l, BorderLayout.CENTER);
+    playerPanel.revalidate();
+    playerPanel.updateUI();
+  }
+
+  public void winScreen(){
+    playerPanel.removeAll();
+    playerPanel.setLayout(new BorderLayout());
+    JLabel l = new JLabel("You win!", JLabel.CENTER);
+    l.setForeground(Color.white);
+    l.setFont(new Font("Arial", Font.BOLD, 40));
+    playerPanel.add(l, BorderLayout.CENTER);
+    playerPanel.revalidate();
+    playerPanel.updateUI();
+  }
+
+  public void blackjackScreen(){
+    playerPanel.removeAll();
+    playerPanel.setLayout(new BorderLayout());
+    JLabel l = new JLabel("BLACKJACK!", JLabel.CENTER);
+    l.setForeground(Color.white);
+    l.setFont(new Font("Arial", Font.BOLD, 40));
+    playerPanel.add(l, BorderLayout.CENTER);
+    playerPanel.revalidate();
     playerPanel.updateUI();
   }
 }
