@@ -29,9 +29,7 @@ public class SelectMoney extends JPanel{
     add(placeBetsLabel);
     Font buttonFont = new Font("Arial", Font.BOLD, 14); // Set font of buttons
 
-    bal = new JLabel(Integer.toString(balance - bet), SwingConstants.CENTER);
-    bal.setFont(buttonFont);
-    add(bal, BorderLayout.SOUTH);
+    //TODO: make balance display on the bottom of the screen
 
     // bal = new JLabel(Integer.toString(balance-bet)); // Display the user's balance to the user
     // this.add(bal); // Add that balance to the screen
@@ -92,7 +90,7 @@ public class SelectMoney extends JPanel{
   public void addMoney(int amt){ // change the money added to the betting pile
     if(amt<0){ // Check if the user is trying to remove a chip
       bet += amt; // remove the chip's value from the bet amount
-      if(coins.size() == 0){ // THIS DOSN'T WORK RIGHT NOW GIMME A SEC.
+      if(coins.size() == 0){
         money.setVisible(false);
       }else{
         money.changeamt(coins.get(coins.size()-1));

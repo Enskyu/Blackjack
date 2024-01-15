@@ -149,10 +149,10 @@ public class Console{
       System.exit(0);
     }
     p1.clearHand();
-    computer.clearHand(); // I don't think this is nessasary because the computer has just been initalized and dosn't have a hand
+    computer.clearHand();
     p1.addCard(deck.drawCard());
     p1.addCard(deck.drawCard());
-    computer.addCard(deck.drawCard().setHidden()); // See the sethidden method in Card.java ln 51
+    computer.addCard(deck.drawCard().setHidden());
     computer.addCard(deck.drawCard());
   }
 
