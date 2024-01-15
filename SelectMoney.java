@@ -27,24 +27,22 @@ public class SelectMoney extends JPanel{
 
     placeBetsLabel = new JLabel("Place your bets");
     add(placeBetsLabel);
-    Font buttonFont = new Font("Arial", Font.BOLD, 14); // Set font of button
+    Font buttonFont = new Font("Arial", Font.BOLD, 14); // Set font of buttons
 
-    bal = new JLabel(Integer.toString(balance-bet)); // Display the user's balance to the user
-    this.add(bal); // Add that balance to the screen
+    bal = new JLabel(Integer.toString(balance - bet), SwingConstants.CENTER);
+    bal.setFont(buttonFont);
+    add(bal, BorderLayout.SOUTH);
+
+    // bal = new JLabel(Integer.toString(balance-bet)); // Display the user's balance to the user
+    // this.add(bal); // Add that balance to the screen
 
     money = new Button(-100, this); //clicking this removes the latest chip they added.
     money.setText(Integer.toString(bet)); // Set the text of that button to the user's bet amount
     money.setFont(buttonFont);
     money.setPreferredSize(new Dimension(60, 20));
-    money.setForeground(Color.RED);
 
-    // Button add1Button = new Button(1, this); // a button to add a 1 chip to the bet
-    // Button add5Button = new Button(5, this); // a button to add a 5 chip to the bet
-    // Button add25Button = new Button(25, this); 
-    // Button add50Button = new Button(50, this); 
-    // Button add100Button = new Button(100, this); 
-    
-    //TODO: Make buttons bigger...
+    // Change button text color to RED!
+    money.setForeground(Color.RED);
 
     Button[] buttons = {money, new Button(1, this), new Button(5, this),
             new Button(25, this), new Button(50, this), new Button(100, this)};
@@ -65,6 +63,8 @@ public class SelectMoney extends JPanel{
     button.setPreferredSize(new Dimension(80, 40));
     this.add(button); // add the start button to the container.
     frame.add(this); // add the whole bet money container to the frame.
+
+
   }
 
   public class Button extends JButton{ 

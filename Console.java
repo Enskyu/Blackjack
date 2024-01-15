@@ -50,7 +50,7 @@ public class Console{
     playerPanel.setBackground(new Color(53, 101, 77)); // Set the background of the computer's panel to dark green
     p1.setPanel(playerPanel); // Add the player panel to the game container.
 
-    hitButton.setFocusable(false); // I have no idea what this does and it dosn't seem to make a diff anyways
+    hitButton.setFocusable(false); 
     buttonPanel.add(hitButton); // Add this button to the buttonpanel container.
     standButton.setFocusable(false);
     buttonPanel.add(standButton); // Add this button to the buttonpanel container.
@@ -59,7 +59,7 @@ public class Console{
     frame.add(buttonPanel, BorderLayout.SOUTH); // Add the buttonpanel container to the bottom of the screen (south quadrant)
 
     /*
-     * Long explination of the listeners below
+     * Long explanation of the listeners below
      * 
      * basically the Mouseadapter class has a method called mousePressed that will be called when the mouse is presssed
      * in the code we are overriding it to do what we want it to do 
@@ -72,7 +72,7 @@ public class Console{
     hitButton.addMouseListener(new MouseAdapter() { // Add a mouse listener to the hit button 
       @Override
       public void mousePressed(MouseEvent e){ // Overwrite the native method in the MouseAdapter class
-        if(e.getButton() == MouseEvent.BUTTON1){ // Check that the button has been leftclicked
+        if(e.getButton() == MouseEvent.BUTTON1){ // Check that the button has been left clicked
           playerAction(1); // Call the playeraction method with the act being left click or 1
         }
       }
