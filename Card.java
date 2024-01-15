@@ -1,6 +1,3 @@
-// https://www.youtube.com/watch?v=GMdgjaDdOjI     youtube tutorial
-//https://github.com/ImKennyYip/blackjack-java     cards visuals for later
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 

@@ -25,14 +25,11 @@ public class SelectMoney extends JPanel{
 
     setLayout(new FlowLayout());
 
-    placeBetsLabel = new JLabel("Place your bets");
+    placeBetsLabel = new JLabel("Place your bets:");
     add(placeBetsLabel);
     Font buttonFont = new Font("Arial", Font.BOLD, 14); // Set font of buttons
 
     //TODO: make balance display on the bottom of the screen
-
-    // bal = new JLabel(Integer.toString(balance-bet)); // Display the user's balance to the user
-    // this.add(bal); // Add that balance to the screen
 
     money = new Button(-100, this); //clicking this removes the latest chip they added.
     money.setText(Integer.toString(bet)); // Set the text of that button to the user's bet amount
@@ -61,6 +58,12 @@ public class SelectMoney extends JPanel{
     button.setPreferredSize(new Dimension(80, 40));
     this.add(button); // add the start button to the container.
     frame.add(this); // add the whole bet money container to the frame.
+
+    JLabel someText = new JLabel("Your balance remaining: ");
+    add(someText);
+
+    bal = new JLabel(Integer.toString(balance-bet)); // Display the user's balance to the user
+    this.add(bal); // Add that balance to the screen
 
 
   }
