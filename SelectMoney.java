@@ -29,8 +29,6 @@ public class SelectMoney extends JPanel{
     add(placeBetsLabel);
     Font buttonFont = new Font("Arial", Font.BOLD, 14); // Set font of buttons
 
-    //TODO: make balance display on the bottom of the screen
-
     money = new Button(-100, this); //clicking this removes the latest chip they added.
     money.setText(Integer.toString(bet)); // Set the text of that button to the user's bet amount
     money.setFont(buttonFont);
@@ -61,11 +59,8 @@ public class SelectMoney extends JPanel{
 
     JLabel someText = new JLabel("Your balance remaining: ");
     add(someText);
-
     bal = new JLabel(Integer.toString(balance-bet)); // Display the user's balance to the user
     this.add(bal); // Add that balance to the screen
-
-
   }
 
   public class Button extends JButton{ 
@@ -89,6 +84,8 @@ public class SelectMoney extends JPanel{
       this.amt = newamt;
     }
   }
+
+  //TODO: MAKE SURE MONEY DOES NOT GO INTO NEGATIVES
 
   public void addMoney(int amt){ // change the money added to the betting pile
     if(amt<0){ // Check if the user is trying to remove a chip
