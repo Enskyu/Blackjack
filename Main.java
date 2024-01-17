@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Main extends JFrame{
+public class Main extends JFrame {
     private Deck deck;
     private Money money;
     private Player player;
@@ -23,7 +23,7 @@ public class Main extends JFrame{
         this.setVisible(true);
     }
 
-    public void startGame(int bet){ 
+    public void startGame(int bet) { 
         this.getContentPane().removeAll(); // Clear all elements from the screen
         this.repaint();
         if(deck.getDeck().size()<70){ // if the deck size is smaller then 70 then "shuffle" also known as just getting a new deck.
@@ -35,7 +35,7 @@ public class Main extends JFrame{
         console = new Console(this, deck, money, player);
     }
 
-    public void gameDone(){
+    public void gameDone() {
         this.addMouseListener(new MouseAdapter() { // Called in method playerAction in Console.java
             public void mousePressed(MouseEvent e){ // Purpose is to detect a click anywhere on the screen and continue by calling the bet money screen up again
                 selectMoney(this);
@@ -43,7 +43,7 @@ public class Main extends JFrame{
         });
     }
 
-    public void selectMoney(MouseAdapter e){ // called by gameDone method in Main.java ln 38
+    public void selectMoney(MouseAdapter e) { // called by gameDone method in Main.java ln 38
         this.removeMouseListener(e); // remove the mouse listener to prevent progress of the user being reset. (if the user is in the middle of clicking a bet and the screen resets because of the click listener it's bad)
         this.getContentPane().removeAll();// Clear all the contents of the screen
         this.repaint(); 

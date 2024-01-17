@@ -13,19 +13,19 @@ public class Player {
     hand = new ArrayList<>();
   }
 
-  public Player(String name, JPanel p){
+  public Player(String name, JPanel p) {
     this.name = name;
     panel = p;
     hand = new ArrayList<>();
   }
 
-  public void setPanel(JPanel p){
+  public void setPanel(JPanel p) {
     panel = p;
   }
 
   public void addCard(Card card) {
     hand.add(card);
-    panel.add(hand.get(hand.size()-1));
+    panel.add(hand.get(hand.size() - 1));
     panel.updateUI();
   }
 
@@ -67,11 +67,11 @@ public class Player {
     return getHandValue() == 21 && hand.size() == 2;
   }
 
-  public ArrayList<Card> getHand(){
+  public ArrayList<Card> getHand() {
     return hand;
   }
 
-  public Card get(int i){
+  public Card get(int i) {
     return hand.get(i);
   }
 

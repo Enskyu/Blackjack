@@ -77,7 +77,7 @@ public class Card extends JLabel{
      * @return the file path of the image associated with the card.
      */
     public String getImagePath() {
-        return "./cards/" + num +"-"+suit.substring(0, 1) + ".png";
+        return "./cards/" + num + "-" +suit.substring(0, 1) + ".png";
     }
 
     /**
@@ -86,7 +86,7 @@ public class Card extends JLabel{
      *
      * @return the card itself.
      */
-    public Card setHidden(){ // Returns a card because it needs to happen between drawing the card and putting the card in the computer's deck so insted of setting it to a variable I just made sethidden return itself to the call.
+    public Card setHidden() { // Returns a card because it needs to happen between drawing the card and putting the card in the computer's deck so insted of setting it to a variable I just made sethidden return itself to the call.
         ImageIcon image = new ImageIcon("./cards/BACK.png"); // get a icon image of the back
         Image img = image.getImage();
         Image newimg = img.getScaledInstance(100, 150,Image.SCALE_SMOOTH); 
@@ -99,7 +99,7 @@ public class Card extends JLabel{
     /**
      * Reveals the front of the card by updating its image.
      */
-    public void reveal(){ 
+    public void reveal() { 
         ImageIcon image = new ImageIcon(getImagePath());
         Image img = image.getImage();
         Image newimg = img.getScaledInstance(100, 150,Image.SCALE_SMOOTH);

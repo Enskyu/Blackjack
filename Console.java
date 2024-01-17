@@ -5,7 +5,7 @@ import java.awt.event.*;
 /**
  * Console class represents the graphical user interface for the Blackjack game.
  */
-public class Console{
+public class Console {
   private Main frame; 
   private Deck deck; 
   private Player p1; 
@@ -37,7 +37,7 @@ public class Console{
    * @param money  The money pool for the game.
    * @param player The player object for the game.
    */
-  public Console(Main f, Deck deck, Money money, Player player){
+  public Console(Main f, Deck deck, Money money, Player player) {
     frame = f;
     this.deck = deck;
     this.money = money;
@@ -118,7 +118,7 @@ public class Console{
     }
     if(act == 1) { // if Hit has been pressed
       p1.addCard(deck.drawCard()); // Give the player a card
-      if(p1.getHandValue() < 21){
+      if(p1.getHandValue() < 21) {
         return; // HAS TO RETURN so it dosn't contact the win checks below this line
       }
     }
@@ -127,12 +127,12 @@ public class Console{
       computer.addCard(deck.drawCard());
       computer.showHand();
     }
-    if(p1.getHandValue() > 21){
+    if(p1.getHandValue() > 21) {
       System.out.println("You lose $" + money.getPool());
       money.playerLose();
       loseScreen();
       frame.gameDone();
-    } else if(computer.isBust()){
+    } else if(computer.isBust()) {
       System.out.println("Computer busts. You win $" + money.getPool());
       money.playerWin();
       winScreen();
@@ -142,12 +142,12 @@ public class Console{
       money.BlackJack();
       blackjackScreen();
       frame.gameDone();
-    } else if(p1.getHandValue() > computer.getHandValue()){
+    } else if(p1.getHandValue() > computer.getHandValue()) {
       System.out.println("You win $" + money.getPool());
       money.playerWin();
       winScreen();
       frame.gameDone();
-    } else if (p1.getHandValue() <= computer.getHandValue() || p1.getHandValue() > 21){
+    } else if (p1.getHandValue() <= computer.getHandValue() || p1.getHandValue() > 21) {
       System.out.println("You lose $" + money.getPool());
       money.playerLose();
       loseScreen();

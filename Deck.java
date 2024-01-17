@@ -14,8 +14,8 @@ public class Deck{
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
         String[] nums = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
 
-        for (String suit : suits){
-            for (String num : nums){
+        for (String suit : suits) {
+            for (String num : nums) {
               cards.add(new Card(suit, num, true));
               cards.add(new Card(suit, num, true)); // Made two decks because that's how they do it in the washington post
             }
@@ -23,7 +23,7 @@ public class Deck{
         System.out.println(cards.size());
     }
 
-    public ArrayList<Card> getDeck(){
+    public ArrayList<Card> getDeck() {
         return cards;
     }
 
