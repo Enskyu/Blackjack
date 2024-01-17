@@ -12,8 +12,8 @@ public class Main extends JFrame{
 
     public Main(){
         super("blackjack");
-        deck = new Deck(); // Initalize deck
-        money = new Money(); // Initalize money
+        deck = new Deck(); 
+        money = new Money();
         selMon = new SelectMoney(this, money.getBalance()); // Initalize selector panel for betting
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(600, 500));
@@ -23,7 +23,7 @@ public class Main extends JFrame{
         this.setVisible(true);
     }
 
-    public void startGame(int bet){ // called by button Button in SelectMoney.java ln 35
+    public void startGame(int bet){ 
         this.getContentPane().removeAll(); // Clear all elements from the screen
         this.repaint();
         if(deck.getDeck().size()<70){ // if the deck size is smaller then 70 then "shuffle" also known as just getting a new deck.
@@ -32,7 +32,7 @@ public class Main extends JFrame{
         }
         money.initialBet(bet);
         player = new Player("Player");
-        console = new Console(this, deck, money, player); // Initalize your class wooooo
+        console = new Console(this, deck, money, player);
     }
 
     public void gameDone(){
@@ -48,7 +48,7 @@ public class Main extends JFrame{
         this.getContentPane().removeAll();// Clear all the contents of the screen
         this.repaint(); 
         selMon = new SelectMoney(this, money.getBalance()); // Create a new screen for the betting to go onto.
-        this.setVisible(true); // This line always has to go last.
+        this.setVisible(true); 
     }
 
     public static void main(String[] args) {

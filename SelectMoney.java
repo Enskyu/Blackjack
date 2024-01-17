@@ -85,28 +85,29 @@ public class SelectMoney extends JPanel{
     }
   }
 
-  //TODO: MAKE SURE MONEY DOES NOT GO INTO NEGATIVES
-
-  public void addMoney(int amt){ // change the money added to the betting pile
-    if(amt<0){ // Check if the user is trying to remove a chip
-      bet += amt; // remove the chip's value from the bet amount
-      if(coins.size() == 0){
-        money.setVisible(false);
-      }else{
-        money.changeamt(coins.get(coins.size()-1));
-      }
-      coins.remove(coins.size()-1);// remove the chip that the user watned to remove from the list of chips
-      money.changeamt(coins.get(coins.size()-1)*-1); // change the subtract button to the correct next chip value if the user were to remove the next chip (SelectMoney.java ln 56)
-      System.out.println(coins);
-    }else{
-      coins.add(amt); // Add the chip that wants to be added to the list of coins
-      bet += amt;
-      money.changeamt(-1*amt); // Change the subtract chip button to this chips value.
-      System.out.println(amt);
-      System.out.println(bet);
-      System.out.println(coins);
+  public void addMoney(int amt) { // change the money added to the betting pile
+    if (amt < 0) { // Check if the user is trying to remove a chip
+        if (coins.size() > 0) {
+            bet += amt; // remove the chip's value from the bet amount
+            money.changeamt(coins.get(coins.size() - 1));
+            coins.remove(coins.size() - 1);
+            money.changeamt(coins.size() > 0 ? coins.get(coins.size() - 1) * -1 : -100);
+        }
+    } else {
+        if (balance - bet - amt >= 0) { // Check if the user has enough balance to add the chip
+            coins.add(amt); // Add the chip that wants to be added to the list of coins
+            bet += amt;
+            money.changeamt(-1 * amt); // Change the subtract chip button to this chip's value.
+            System.out.println(amt);
+            System.out.println(bet);
+            System.out.println(coins);
+        } else {
+            // Display a message or handle the case where the user tries to bet more than they have
+            System.out.println("Not enough balance to place this bet.");
+        }
     }
+
     money.setText(Integer.toString(bet)); // Update the value of the bet to the user
-    bal.setText(Integer.toString(balance-bet)); // Update the balance of the user to the user
+    bal.setText(Integer.toString(balance - bet)); // Update the balance of the user to the user
   }
 }

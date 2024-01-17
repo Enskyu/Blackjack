@@ -7,7 +7,7 @@ import java.awt.Image;
  * The {@code Card} class represents a playing card in a standard deck.
  * It extends {@link JLabel} to display the card as an image.
  */
-public class Card extends JLabel{ // Because a image in Java swing is literally just a image on a invisible text label/
+public class Card extends JLabel{
     private String suit;
     private String num;
 
@@ -22,7 +22,7 @@ public class Card extends JLabel{ // Because a image in Java swing is literally 
         super();
         this.suit = suit;
         this.num = num;
-        ImageIcon image = new ImageIcon(getImagePath()); // Look at comments in setHidden method (ln 107)
+        ImageIcon image = new ImageIcon(getImagePath()); 
         Image img = image.getImage();
         Image newimg = img.getScaledInstance(100, 150,Image.SCALE_SMOOTH);
         image = new ImageIcon(newimg);
@@ -76,7 +76,7 @@ public class Card extends JLabel{ // Because a image in Java swing is literally 
      *
      * @return the file path of the image associated with the card.
      */
-    public String getImagePath() { // You guys didn't use the first letter of the suit rather the whole card, and that wasn't working.
+    public String getImagePath() {
         return "./cards/" + num +"-"+suit.substring(0, 1) + ".png";
     }
 
@@ -88,18 +88,18 @@ public class Card extends JLabel{ // Because a image in Java swing is literally 
      */
     public Card setHidden(){ // Returns a card because it needs to happen between drawing the card and putting the card in the computer's deck so insted of setting it to a variable I just made sethidden return itself to the call.
         ImageIcon image = new ImageIcon("./cards/BACK.png"); // get a icon image of the back
-        Image img = image.getImage(); // Create a image type
-        Image newimg = img.getScaledInstance(100, 150,Image.SCALE_SMOOTH); // Create a new image type that is a smaller scale of the previous image
+        Image img = image.getImage();
+        Image newimg = img.getScaledInstance(100, 150,Image.SCALE_SMOOTH); 
         image = new ImageIcon(newimg); // set the type of it back to a ImageIcon
         this.setIcon(image); // Set it as the background of the JLabel.
-        this.updateUI(); // Not nessasary? not sure.
+        this.updateUI(); 
         return this;
     }
 
     /**
      * Reveals the front of the card by updating its image.
      */
-    public void reveal(){ // Look at comment in setHidden method (ln 107)
+    public void reveal(){ 
         ImageIcon image = new ImageIcon(getImagePath());
         Image img = image.getImage();
         Image newimg = img.getScaledInstance(100, 150,Image.SCALE_SMOOTH);

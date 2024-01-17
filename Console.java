@@ -2,17 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Console class represents the graphical user interface for the Blackjack game.
+ */
 public class Console{
-  private Main frame; // The frame for the game to go onto. Remember that Main extends JFrame
-  private Deck deck; // The deck that this game is using (a deck can be used in multiple games of blackjack and is given by the constructor ln 34)
-  private Player p1; // The player object for this game also given through the constructor ln 34
-  private Computer computer; // The computer object for this game, intalized ln 39
-  private Money money; // The money (or I like to call it the pool of this class given through constructor in ln 34)
-  //constructor
-  //game start message
-  //display the two cards the player has and the first dealer card
-  //actively show remaining cards in the deck
-  //receive the card value / call getcardvalue from other classes
+  private Main frame; 
+  private Deck deck; 
+  private Player p1; 
+  private Computer computer; 
+  private Money money; 
 
   //window
   int boardWidth = 600;
@@ -31,6 +29,14 @@ public class Console{
   JPanel computerPanel = new JPanel(); // The container for the computer's cards
 
   
+  /**
+   * Constructor for the Console class.
+   *
+   * @param f      The main frame for the game.
+   * @param deck   The deck used in the game.
+   * @param money  The money pool for the game.
+   * @param player The player object for the game.
+   */
   public Console(Main f, Deck deck, Money money, Player player){
     frame = f;
     this.deck = deck;
@@ -42,20 +48,21 @@ public class Console{
     gamePanel.setLayout(new GridLayout(2, 1)); // Get two rows in the game container, top for the dealer, bottom for the player.
     frame.add(gamePanel, BorderLayout.CENTER); // Add the game panel to the screen putting it in the center of the screen
 
-    gamePanel.add(computerPanel); // Add the computer's panel into the game panel (it auto goes into top because taht's the next avaliable space in the gridlayout)
+    gamePanel.add(computerPanel); // Add the computer's panel into the game panel (it auto goes into top because that's the next avaliable space in the gridlayout)
     computerPanel.setLayout(new GridLayout(0, 5, 10, 10)); // Give 5 card slots to the computer container
     computerPanel.setBackground(new Color(53, 101, 77)); // Set the background of the computers panel to dark green
-    gamePanel.add(playerPanel); // Add the computer's panel to the game container
-    playerPanel.setLayout(new GridLayout(0, 5, 10, 10)); // give 5 card slots to the player's container
-    playerPanel.setBackground(new Color(53, 101, 77)); // Set the background of the computer's panel to dark green
-    p1.setPanel(playerPanel); // Add the player panel to the game container.
+    // Do the same thing but for the player
+    gamePanel.add(playerPanel);
+    playerPanel.setLayout(new GridLayout(0, 5, 10, 10)); 
+    playerPanel.setBackground(new Color(53, 101, 77)); 
+    p1.setPanel(playerPanel); 
 
     hitButton.setFocusable(false); 
-    buttonPanel.add(hitButton); // Add this button to the buttonpanel container.
+    buttonPanel.add(hitButton); 
     standButton.setFocusable(false);
-    buttonPanel.add(standButton); // Add this button to the buttonpanel container.
+    buttonPanel.add(standButton); 
     doubleDowButton.setFocusable(false);
-    buttonPanel.add(doubleDowButton); // Add this button to the buttonpanel container.
+    buttonPanel.add(doubleDowButton);
     frame.add(buttonPanel, BorderLayout.SOUTH); // Add the buttonpanel container to the bottom of the screen (south quadrant)
 
     /*
@@ -98,21 +105,25 @@ public class Console{
     startGame();
   }
 
-  private void playerAction(int act){
+  /**
+   * Handles player actions based on the given action code.
+   *
+   * @param act The action code: 0 for Double Down, 1 for Hit, 2 for Stand.
+   */
+  private void playerAction(int act) {
     buttonPanel.remove(doubleDowButton); // the double down button should only be there when the player has two cards, as soon as the player does an action the button is removed from the button panel
     buttonPanel.updateUI(); // Have to remove the button from the screen but updating the interface of the whole container
-    if(act == 0){ // if double down button has been pressed
-      // do stuff
+    if(act == 0) {
       return; // HAS TO RETURN so it doesn't contact the win checks below this line
     }
-    if(act == 1){ // if Hit has been pressed
+    if(act == 1) { // if Hit has been pressed
       p1.addCard(deck.drawCard()); // Give the player a card
       if(p1.getHandValue() < 21){
         return; // HAS TO RETURN so it dosn't contact the win checks below this line
       }
-    }// If it wasn't those two methods it has to be stand.
+    }
     computer.showHiddenCard();
-    while(computer.getHandValue() < 17){
+    while(computer.getHandValue() < 17) {
       computer.addCard(deck.drawCard());
       computer.showHand();
     }
@@ -144,6 +155,9 @@ public class Console{
     }
   }
 
+  /**
+   * Starts a new game by initializing player and computer hands.
+   */
   public void startGame(){
     if (money.balCheck() == true) {
       System.exit(0);
@@ -156,6 +170,9 @@ public class Console{
     computer.addCard(deck.drawCard());
   }
 
+  /**
+   * Displays a screen indicating a loss for the player.
+   */
   public void loseScreen(){
     playerPanel.removeAll();
     playerPanel.setLayout(new BorderLayout());
@@ -167,6 +184,9 @@ public class Console{
     playerPanel.updateUI();
   }
 
+  /**
+   * Displays a screen indicating a win for the player.
+   */
   public void winScreen(){
     playerPanel.removeAll();
     playerPanel.setLayout(new BorderLayout());
@@ -178,6 +198,9 @@ public class Console{
     playerPanel.updateUI();
   }
 
+  /**
+   * Displays a screen indicating a Blackjack win for the player.
+   */
   public void blackjackScreen(){
     playerPanel.removeAll();
     playerPanel.setLayout(new BorderLayout());
