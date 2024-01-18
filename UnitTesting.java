@@ -7,17 +7,17 @@ public class UnitTesting {
         testLoseScreen();
     }
 
-    public static void testLoseScreen() {  
+    public static void testLoseScreen() {
+        Console console = createMockConsole();
+        console.loseScreen(); // Call the method you want to test
+    }
+
+    private static Console createMockConsole() {
         Main mockFrame = new Main();
         Deck mockDeck = new Deck();
         Money mockMoney = new Money();
         Player mockPlayer = new Player("test");
 
-        Console console = new Console(mockFrame, mockDeck, mockMoney, mockPlayer);
-        mockFrame.getContentPane().removeAll();
-        mockFrame.repaint();
-
-        console.loseScreen(); // Call the method you want to test
-        mockFrame.setVisible(true);
+        return new Console(mockFrame, mockDeck, mockMoney, mockPlayer);
     }
 }
