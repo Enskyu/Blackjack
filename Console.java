@@ -43,8 +43,9 @@ public class Console {
     this.money = money;
     p1 = player;
     computer = new Computer(computerPanel);
-
-    frame.setLayout(new BorderLayout()); // Sets the frame to a border layout, basically elements can be put in quadronts n, s, e, w and center
+    
+    // Sets the frame to a border layout, basically elements can be put in quadronts n, s, e, w and center
+    frame.setLayout(new BorderLayout()); 
     gamePanel.setLayout(new GridLayout(2, 1)); // Get two rows in the game container, top for the dealer, bottom for the player.
     frame.add(gamePanel, BorderLayout.CENTER); // Add the game panel to the screen putting it in the center of the screen
 
@@ -158,7 +159,7 @@ public class Console {
   /**
    * Starts a new game by initializing player and computer hands.
    */
-  public void startGame(){
+  public void startGame() {
     if (money.balCheck() == true) {
       System.exit(0);
     }
@@ -173,7 +174,7 @@ public class Console {
   /**
    * Displays a screen indicating a loss for the player.
    */
-  public void loseScreen(){
+  public void loseScreen() {
     playerPanel.removeAll();
     playerPanel.setLayout(new BorderLayout());
     JLabel l = new JLabel("You lose", JLabel.CENTER);
@@ -187,7 +188,7 @@ public class Console {
   /**
    * Displays a screen indicating a win for the player.
    */
-  public void winScreen(){
+  public void winScreen() {
     playerPanel.removeAll();
     playerPanel.setLayout(new BorderLayout());
     JLabel l = new JLabel("You win!", JLabel.CENTER);
@@ -201,7 +202,7 @@ public class Console {
   /**
    * Displays a screen indicating a Blackjack win for the player.
    */
-  public void blackjackScreen(){
+  public void blackjackScreen() {
     playerPanel.removeAll();
     playerPanel.setLayout(new BorderLayout());
     JLabel l = new JLabel("BLACKJACK!", JLabel.CENTER);

@@ -9,11 +9,11 @@ This project uses common standards for Java, such as but not limited to:
  - Follows indentation and spacing conventions
 
 ## Usage
-To run this file, clone this [repository](https://github.com/Enskyu/Blackjack)
+To run this file, clone this [repository](https://github.com/Enskyu/Blackjack.git)
 Open this file using your IDE
 Run the Main.java class to start the game
 
-# How to play
+## How to play
 Once the game is running, the graphical interface will guide you through the Blackjack experience. Key functionalities include:
 
 Hit: Request an additional card to increase your hand value.

@@ -6,13 +6,10 @@ public class Money{
   public int pool;
   public boolean gameover = false;
 
-  public int initialBet(int bet) {
+  public void initialBet(int bet) {
     pool += bet;
-    // temp return statement
-    return 0;
   }
   
-
   public int getPool() {
     return pool;
   }
