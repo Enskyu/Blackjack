@@ -1,6 +1,4 @@
 
-// @Carter for money class
-
 public class Money{
     private int playerMoney = 1000;
     private int pool;
@@ -9,7 +7,7 @@ public class Money{
     public void initialBet(int bet) {
         pool += bet;
     }
-    
+
     public int getPool() {
         return pool;
     }
@@ -54,7 +52,7 @@ public class Money{
             pool = 0;
             return true;
         }
-        else { 
+        else {
             return false;
         }
     }

@@ -12,10 +12,10 @@ public class Main extends JFrame {
 
     public Main(){
         super("blackjack");
-        deck = new Deck(); 
+        deck = new Deck();
         money = new Money();
         // Initalize selector panel for betting.
-        selMon = new SelectMoney(this, money.getBalance()); 
+        selMon = new SelectMoney(this, money.getBalance());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(600, 500));
         this.setSize(600, 600);
@@ -24,12 +24,12 @@ public class Main extends JFrame {
         this.setVisible(true);
     }
 
-    public void startGame(int bet) { 
+    public void startGame(int bet) {
         // Clear all elements from the screen.
-        this.getContentPane().removeAll(); 
+        this.getContentPane().removeAll();
         this.repaint();
-        // If the deck size is smaller then 70 then "shuffle" also known as just getting a new deck.
-        if (deck.getDeck().size() < 70){ 
+        // If the deck size is smaller then 70 then "shuffle".
+        if (deck.getDeck().size() < 70){
             System.out.println("shuffling");
             deck = new Deck();
         }
@@ -39,10 +39,10 @@ public class Main extends JFrame {
     }
 
     public void gameDone() {
-        // Called in method playerAction in Console.java.
         this.addMouseListener(new MouseAdapter() {
-            // Purpose is to detect a click anywhere on the screen and continue by calling the bet money screen up again.
-            public void mousePressed(MouseEvent e) { 
+            // Purpose is to detect a click anywhere on the screen
+            // and continue by calling the bet money screen up again.
+            public void mousePressed(MouseEvent e) {
                 selectMoney(this);
             }
         });
@@ -50,14 +50,14 @@ public class Main extends JFrame {
 
     // Called by gameDone method in Main.java ln 38.
     public void selectMoney(MouseAdapter e) {
-        // Remove the mouse listener to prevent progress of the user being reset.
+        // Remove mouse listener to prevent progress of user being reset.
         this.removeMouseListener(e);
         // Clear all the contents of the screen.
         this.getContentPane().removeAll();
-        this.repaint(); 
+        this.repaint();
         // Create a new screen for the betting to go onto.
         selMon = new SelectMoney(this, money.getBalance());
-        this.setVisible(true); 
+        this.setVisible(true);
     }
 
     public static void main(String[] args) {

@@ -28,7 +28,7 @@ public class SelectMoney extends JPanel {
         frame = f;
         balance = playerBalance;
         // Create a array to store the clips that the user wants to bid so that when u add or remove a chip we can keep track of how much to add or remove.
-        coins = new ArrayList<>(); 
+        coins = new ArrayList<>();
         coins.add(100);
 
         setLayout(new FlowLayout());
@@ -39,7 +39,7 @@ public class SelectMoney extends JPanel {
         Font buttonFont = new Font("Arial", Font.BOLD, 14);
 
         // Clicking this removes the latest chip they added.
-        money = new Button(-100, this); 
+        money = new Button(-100, this);
         // Set the text of that button to the user's bet amount.
         money.setText(Integer.toString(bet));
         money.setFont(buttonFont);
@@ -84,7 +84,7 @@ public class SelectMoney extends JPanel {
     /**
      * Button class represents a custom JButton used for managing betting amounts.
      */
-    public class Button extends JButton { 
+    public class Button extends JButton {
         private int amt;
 
         /**
@@ -95,7 +95,7 @@ public class SelectMoney extends JPanel {
          */
         public Button(int amt, JPanel p) {
             // Create a button object with the chamge anount as the text displayed.
-            super(Integer.toString(amt)); 
+            super(Integer.toString(amt));
             this.amt = amt;
             // Add this to the bet panel.
             p.add(this);
@@ -105,7 +105,7 @@ public class SelectMoney extends JPanel {
                     // Check that it is a left click.
                     if(e.getButton() == MouseEvent.BUTTON1) {
                         // Add money to the pot.
-                        addMoney(getAmount()); 
+                        addMoney(getAmount());
                     }
                 }
             });
@@ -127,7 +127,7 @@ public class SelectMoney extends JPanel {
          * @param newamt The new amount to set.
          */
         // Change the amount to change by.
-        public void changeamt(int newamt) { 
+        public void changeamt(int newamt) {
             this.amt = newamt;
         }
     }
@@ -140,10 +140,10 @@ public class SelectMoney extends JPanel {
     // Change the money added to the betting pile.
     public void addMoney(int amt) {
         // Check if the user is trying to remove a chip.
-        if (amt < 0) { 
+        if (amt < 0) {
             if (coins.size() > 0) {
                 // Remove the chip's value from the bet amount.
-                bet += amt; 
+                bet += amt;
                 money.changeamt(coins.get(coins.size() - 1));
                 coins.remove(coins.size() - 1);
                 money.changeamt(coins.size() > 0 ? coins.get(coins.size() - 1) * -1 : -100);
@@ -152,10 +152,10 @@ public class SelectMoney extends JPanel {
             // Check if the user has enough balance to add the chip.
             if (balance - bet - amt >= 0) {
                 // Add the chip that wants to be added to the list of coins.
-                coins.add(amt); 
+                coins.add(amt);
                 bet += amt;
                 // Change the subtract chip button to this chip's value.
-                money.changeamt(-1 * amt); 
+                money.changeamt(-1 * amt);
                 System.out.println(amt);
                 System.out.println(bet);
                 System.out.println(coins);

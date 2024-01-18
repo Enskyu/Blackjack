@@ -12,11 +12,11 @@ public class Card extends JLabel{
     private String num;
 
     /**
-     * Constructs a new card with the specified suit, number, and visibility.
+     * Constructs new card with specified suit, number, and visibility.
      *
-     * @param suit    the suit of the card (e.g., "Hearts", "Diamonds").
-     * @param num     the number or face of the card (e.g., "2", "King", "Ace").
-     * @param hidden  true if the card should be initially hidden, false otherwise.
+     * @param suit   the suit of the card (e.g., "Hearts", "Diamonds").
+     * @param num    the number/face of the card (e.g., "2", "King").
+     * @param hidden true if card should be initially hidden, false otherwise.
      */
     public Card (String suit, String num, boolean hidden) {
         super();
@@ -87,7 +87,7 @@ public class Card extends JLabel{
      * @return the card itself.
      */
 
-    // Returns a card because it needs to happen between drawing the card and putting the card in the computer's deck.
+    // Returns a card (needs to happen between drawing putting the card in the deck)
     public Card setHidden() {
         // Get a icon image of the back.
         ImageIcon image = new ImageIcon("./cards/BACK.png");

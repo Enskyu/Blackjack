@@ -12,7 +12,9 @@ public class Deck{
     private void initializeDeck() {
         cards = new ArrayList<Card>();
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
-        String[] nums = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        String[] nums = {
+            "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"
+        };
 
         for (String suit : suits) {
             for (String num : nums) {
