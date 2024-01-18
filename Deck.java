@@ -17,7 +17,7 @@ public class Deck{
         for (String suit : suits) {
             for (String num : nums) {
                 cards.add(new Card(suit, num, true));
-                cards.add(new Card(suit, num, true)); // Made two decks because that's how they do it in the washington post
+                cards.add(new Card(suit, num, true));
             }
         }
         System.out.println(cards.size());

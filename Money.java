@@ -35,12 +35,10 @@ public class Money{
     public void BlackJack() {
         playerMoney += (pool * 1.5);
         pool = 0;
-
     }
 
     public void doubleDown() {
         pool += pool;
-
     }
 
     public boolean balCheck() {

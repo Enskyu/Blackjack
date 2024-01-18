@@ -18,7 +18,7 @@ public class Card extends JLabel{
      * @param num     the number or face of the card (e.g., "2", "King", "Ace").
      * @param hidden  true if the card should be initially hidden, false otherwise.
      */
-    public Card(String suit, String num, boolean hidden) {
+    public Card (String suit, String num, boolean hidden) {
         super();
         this.suit = suit;
         this.num = num;
@@ -77,7 +77,7 @@ public class Card extends JLabel{
      * @return the file path of the image associated with the card.
      */
     public String getImagePath() {
-        return "./cards/" + num + "-" +suit.substring(0, 1) + ".png";
+        return "./cards/" + num + "-" + suit.substring(0, 1) + ".png";
     }
 
     /**
@@ -89,11 +89,11 @@ public class Card extends JLabel{
 
     // Returns a card because it needs to happen between drawing the card and putting the card in the computer's deck.
     public Card setHidden() {
-        // get a icon image of the back
+        // Get a icon image of the back.
         ImageIcon image = new ImageIcon("./cards/BACK.png");
         Image img = image.getImage();
         Image newimg = img.getScaledInstance(100, 150,Image.SCALE_SMOOTH);
-        // set the type of it back to a ImageIcon
+        // Set the type of it back to a ImageIcon.
         image = new ImageIcon(newimg);
         // Set it as the background of the JLabel.
         this.setIcon(image);

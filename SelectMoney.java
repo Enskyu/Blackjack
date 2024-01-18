@@ -27,17 +27,21 @@ public class SelectMoney extends JPanel {
     public SelectMoney(Main f, int playerBalance) {
         frame = f;
         balance = playerBalance;
-        coins = new ArrayList<>(); // Create a array to store the clips that the user wants to bid so that when u add or remove a chip we can keep track of how much to add or remove.
+        // Create a array to store the clips that the user wants to bid so that when u add or remove a chip we can keep track of how much to add or remove.
+        coins = new ArrayList<>(); 
         coins.add(100);
 
         setLayout(new FlowLayout());
 
         placeBetsLabel = new JLabel("Place your bets:");
         add(placeBetsLabel);
-        Font buttonFont = new Font("Arial", Font.BOLD, 14); // Set font of buttons
+        // Set font of buttons.
+        Font buttonFont = new Font("Arial", Font.BOLD, 14);
 
-        money = new Button(-100, this); //clicking this removes the latest chip they added.
-        money.setText(Integer.toString(bet)); // Set the text of that button to the user's bet amount
+        // Clicking this removes the latest chip they added.
+        money = new Button(-100, this); 
+        // Set the text of that button to the user's bet amount.
+        money.setText(Integer.toString(bet));
         money.setFont(buttonFont);
         money.setPreferredSize(new Dimension(60, 20));
 
@@ -53,21 +57,28 @@ public class SelectMoney extends JPanel {
                 add(button);
         }
 
-        JButton button = new JButton("deal"); // the button to start the actual game
-        button.addMouseListener(new MouseAdapter() { // set up a mouselistener to the start button to make it work
+        // The button to start the actual game.
+        JButton button = new JButton("deal");
+        // Set up a mouselistener to the start button to make it work.
+        button.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                frame.startGame(bet); // Call back to main class and start the game
+                // Call back to main class and start the game.
+                frame.startGame(bet);
             }
         });
         button.setFont(buttonFont);
         button.setPreferredSize(new Dimension(80, 40));
-        this.add(button); // add the start button to the container.
-        frame.add(this); // add the whole bet money container to the frame.
+        // Add the start button to the container.
+        this.add(button);
+        // Add the whole bet money container to the frame.
+        frame.add(this);
 
         JLabel someText = new JLabel("Your balance remaining: ");
         add(someText);
-        bal = new JLabel(Integer.toString(balance-bet)); // Display the user's balance to the user
-        this.add(bal); // Add that balance to the screen
+        // Display the user's balance to the user.
+        bal = new JLabel(Integer.toString(balance-bet));
+        // Add that balance to the screen.
+        this.add(bal);
     }
 
     /**
@@ -83,14 +94,19 @@ public class SelectMoney extends JPanel {
          * @param p     The JPanel to which the button is added.
          */
         public Button(int amt, JPanel p) {
-            super(Integer.toString(amt)); // Create a button object with the chamge anount as the text displaied
+            // Create a button object with the chamge anount as the text displayed.
+            super(Integer.toString(amt)); 
             this.amt = amt;
-            p.add(this); // add this to the bet panel.
-            this.addMouseListener(new MouseAdapter() { // Add mouse listener to the button to make it work.
-                public void mousePressed(MouseEvent e){
-                    if(e.getButton() == MouseEvent.BUTTON1) { // check that it is a left click
-                        addMoney(getAmount()); // add money to the pot.
-                    } // Somehow the line above this comment works when the amount is changed (thanks to the button that displaies the users total be (SelectMoney.java ln 22))
+            // Add this to the bet panel.
+            p.add(this);
+            // Add mouse listener to the button to make it work.
+            this.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    // Check that it is a left click.
+                    if(e.getButton() == MouseEvent.BUTTON1) {
+                        // Add money to the pot.
+                        addMoney(getAmount()); 
+                    }
                 }
             });
         }
@@ -100,7 +116,8 @@ public class SelectMoney extends JPanel {
          *
          * @return The amount associated with the button.
          */
-        private int getAmount() { // Only used in the button class that extends JButton (SelectMoney.java ln 39)
+        // Only used in the button class that extends JButton (SelectMoney.java ln 39)
+        private int getAmount() {
             return this.amt;
         }
 
@@ -109,7 +126,8 @@ public class SelectMoney extends JPanel {
          *
          * @param newamt The new amount to set.
          */
-        public void changeamt(int newamt) { // Change the amount to change by. Again this is only used by the button at SelectMoney.java ln 22. it's the one that takes away chips from the pile in case the user wants to bet lesss
+        // Change the amount to change by.
+        public void changeamt(int newamt) { 
             this.amt = newamt;
         }
     }
@@ -119,28 +137,36 @@ public class SelectMoney extends JPanel {
      *
      * @param amt The amount to be added or removed.
      */
-    public void addMoney(int amt) { // change the money added to the betting pile
-        if (amt < 0) { // Check if the user is trying to remove a chip
-                if (coins.size() > 0) {
-                        bet += amt; // remove the chip's value from the bet amount
-                        money.changeamt(coins.get(coins.size() - 1));
-                        coins.remove(coins.size() - 1);
-                        money.changeamt(coins.size() > 0 ? coins.get(coins.size() - 1) * -1 : -100);
-                }
+    // Change the money added to the betting pile.
+    public void addMoney(int amt) {
+        // Check if the user is trying to remove a chip.
+        if (amt < 0) { 
+            if (coins.size() > 0) {
+                // Remove the chip's value from the bet amount.
+                bet += amt; 
+                money.changeamt(coins.get(coins.size() - 1));
+                coins.remove(coins.size() - 1);
+                money.changeamt(coins.size() > 0 ? coins.get(coins.size() - 1) * -1 : -100);
+            }
         } else {
-                if (balance - bet - amt >= 0) { // Check if the user has enough balance to add the chip
-                        coins.add(amt); // Add the chip that wants to be added to the list of coins
-                        bet += amt;
-                        money.changeamt(-1 * amt); // Change the subtract chip button to this chip's value.
-                        System.out.println(amt);
-                        System.out.println(bet);
-                        System.out.println(coins);
-                } else {
-                        System.out.println("Not enough balance to place this bet.");
-                }
+            // Check if the user has enough balance to add the chip.
+            if (balance - bet - amt >= 0) {
+                // Add the chip that wants to be added to the list of coins.
+                coins.add(amt); 
+                bet += amt;
+                // Change the subtract chip button to this chip's value.
+                money.changeamt(-1 * amt); 
+                System.out.println(amt);
+                System.out.println(bet);
+                System.out.println(coins);
+            } else {
+                    System.out.println("Not enough balance to place this bet.");
+            }
         }
 
-        money.setText(Integer.toString(bet)); // Update the value of the bet
-        bal.setText(Integer.toString(balance - bet)); // Update the balance of the user
+        // Update the value of the bet.
+        money.setText(Integer.toString(bet));
+        // Update the balance of the user.
+        bal.setText(Integer.toString(balance - bet));
     }
 }

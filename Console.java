@@ -19,14 +19,18 @@ public class Console {
     int cardWidth = 110; //1:1.4
     int cardHeight = 154;
 
-    JPanel gamePanel = new JPanel(); // THe main container that blackjack is going to go onto.
+    // THe main container that Blackjack is going to go onto.
+    JPanel gamePanel = new JPanel();
 
-    JPanel buttonPanel = new JPanel(); // The container for containing the buttons at the bottom of the screen
-    JButton hitButton = new JButton("Hit"); // The hit button
-    JButton standButton = new JButton("Stand"); // The stand button
-    JButton doubleDowButton = new JButton("Double Down"); // the double down button
-    JPanel playerPanel = new JPanel(); // The container for the player's cards
-    JPanel computerPanel = new JPanel(); // The container for the computer's cards
+    // The container for containing the buttons at the bottom of the screen.
+    JPanel buttonPanel = new JPanel(); 
+    JButton hitButton = new JButton("Hit");
+    JButton standButton = new JButton("Stand");
+    JButton doubleDowButton = new JButton("Double Down");
+    // The container for the player's cards.
+    JPanel playerPanel = new JPanel();
+    // The container for the computer's cards.
+    JPanel computerPanel = new JPanel();
 
     
     /**
@@ -44,15 +48,20 @@ public class Console {
         p1 = player;
         computer = new Computer(computerPanel);
         
-        // Sets the frame to a border layout, basically elements can be put in quadronts n, s, e, w and center
-        frame.setLayout(new BorderLayout()); 
-        gamePanel.setLayout(new GridLayout(2, 1)); // Get two rows in the game container, top for the dealer, bottom for the player.
-        frame.add(gamePanel, BorderLayout.CENTER); // Add the game panel to the screen putting it in the center of the screen
+        // Sets the frame to a border layout, basically elements can be put in quadronts n, s, e, w and center.
+        frame.setLayout(new BorderLayout());
+        // Get two rows in the game container, top for the dealer, bottom for the player.
+        gamePanel.setLayout(new GridLayout(2, 1));
+        // Add the game panel to the screen putting it in the center of the screen.
+        frame.add(gamePanel, BorderLayout.CENTER);
 
-        gamePanel.add(computerPanel); // Add the computer's panel into the game panel (it auto goes into top because that's the next avaliable space in the gridlayout)
-        computerPanel.setLayout(new GridLayout(0, 5, 10, 10)); // Give 5 card slots to the computer container
-        computerPanel.setBackground(new Color(53, 101, 77)); // Set the background of the computers panel to dark green
-        // Do the same thing but for the player
+        // Add the computer's panel into the game panel (it auto goes into top because that's the next avaliable space in the gridlayout).
+        gamePanel.add(computerPanel);
+        // Give 5 card slots to the computer container.
+        computerPanel.setLayout(new GridLayout(0, 5, 10, 10));
+        // Set the background of the computers panel to dark green.
+        computerPanel.setBackground(new Color(53, 101, 77));
+        // Do the same thing but for the player.
         gamePanel.add(playerPanel);
         playerPanel.setLayout(new GridLayout(0, 5, 10, 10)); 
         playerPanel.setBackground(new Color(53, 101, 77)); 
@@ -64,7 +73,8 @@ public class Console {
         buttonPanel.add(standButton); 
         doubleDowButton.setFocusable(false);
         buttonPanel.add(doubleDowButton);
-        frame.add(buttonPanel, BorderLayout.SOUTH); // Add the buttonpanel container to the bottom of the screen (south quadrant)
+        // Add the buttonpanel container to the bottom of the screen (south quadrant).
+        frame.add(buttonPanel, BorderLayout.SOUTH); 
 
         /*
          * Long explanation of the listeners below
@@ -77,18 +87,22 @@ public class Console {
          * button2 means middle click.
          */
 
-        hitButton.addMouseListener(new MouseAdapter() { // Add a mouse listener to the hit button 
+        // Add a mouse listener to the hit button.
+        hitButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e){ // Overwrite the native method in the MouseAdapter class
-                if(e.getButton() == MouseEvent.BUTTON1){ // Check that the button has been left clicked
-                    playerAction(1); // Call the playeraction method with the act being left click or 1
+            // Overwrite the native method in the MouseAdapter class.
+            public void mousePressed(MouseEvent e) {
+                // Check that the button has been left clicked.
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    // Call the playeraction method with the act being left click or 1.
+                    playerAction(1);
                 }
             }
         });
         standButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e){
-                if(e.getButton() == MouseEvent.BUTTON1){
+                if (e.getButton() == MouseEvent.BUTTON1){
                     playerAction(2);
                 }
             }
@@ -97,7 +111,7 @@ public class Console {
         doubleDowButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e){
-                if(e.getButton() == MouseEvent.BUTTON1){
+                if (e.getButton() == MouseEvent.BUTTON1){
                     playerAction(0);
                 }
             }
@@ -112,15 +126,21 @@ public class Console {
      * @param act The action code: 0 for Double Down, 1 for Hit, 2 for Stand.
      */
     private void playerAction(int act) {
-        buttonPanel.remove(doubleDowButton); // the double down button should only be there when the player has two cards, as soon as the player does an action the button is removed from the button panel
-        buttonPanel.updateUI(); // Have to remove the button from the screen but updating the interface of the whole container
-        if(act == 0) {
-            return; // HAS TO RETURN so it doesn't contact the win checks below this line
+        // The double down button should only be there when the player has two cards, as soon as the player does an action the button is removed from the button panel.
+        buttonPanel.remove(doubleDowButton);
+        // Have to remove the button from the screen but updating the interface of the whole container.
+        buttonPanel.updateUI();
+        if (act == 0) {
+            p1.addCard(deck.drawCard());
+            money.doubleDown();
         }
-        if(act == 1) { // if Hit has been pressed
-            p1.addCard(deck.drawCard()); // Give the player a card
-            if(p1.getHandValue() < 21) {
-                return; // HAS TO RETURN so it dosn't contact the win checks below this line
+        // If Hit has been pressed.
+        if (act == 1) {
+            // Give the player a card.
+            p1.addCard(deck.drawCard());
+            if (p1.getHandValue() < 21) {
+                // HAS TO RETURN so it dosn't contact the win checks below this line.
+                return;
             }
         }
         computer.showHiddenCard();
@@ -128,12 +148,12 @@ public class Console {
             computer.addCard(deck.drawCard());
             computer.showHand();
         }
-        if(p1.getHandValue() > 21) {
+        if (p1.getHandValue() > 21) {
             System.out.println("You lose $" + money.getPool());
             money.playerLose();
             loseScreen();
             frame.gameDone();
-        } else if(computer.isBust()) {
+        } else if (computer.isBust()) {
             System.out.println("Computer busts. You win $" + money.getPool());
             money.playerWin();
             winScreen();
@@ -143,7 +163,7 @@ public class Console {
             money.BlackJack();
             blackjackScreen();
             frame.gameDone();
-        } else if(p1.getHandValue() > computer.getHandValue()) {
+        } else if (p1.getHandValue() > computer.getHandValue()) {
             System.out.println("You win $" + money.getPool());
             money.playerWin();
             winScreen();
