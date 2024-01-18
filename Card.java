@@ -22,13 +22,13 @@ public class Card extends JLabel{
         super();
         this.suit = suit;
         this.num = num;
-        ImageIcon image = new ImageIcon(getImagePath()); 
+        ImageIcon image = new ImageIcon(getImagePath());
         Image img = image.getImage();
         Image newimg = img.getScaledInstance(100, 150,Image.SCALE_SMOOTH);
         image = new ImageIcon(newimg);
         this.setIcon(image);
     }
-    
+
     /**
      * Gets the suit of the card.
      *
@@ -86,20 +86,25 @@ public class Card extends JLabel{
      *
      * @return the card itself.
      */
-    public Card setHidden() { // Returns a card because it needs to happen between drawing the card and putting the card in the computer's deck so insted of setting it to a variable I just made sethidden return itself to the call.
-        ImageIcon image = new ImageIcon("./cards/BACK.png"); // get a icon image of the back
+
+    // Returns a card because it needs to happen between drawing the card and putting the card in the computer's deck.
+    public Card setHidden() {
+        // get a icon image of the back
+        ImageIcon image = new ImageIcon("./cards/BACK.png");
         Image img = image.getImage();
-        Image newimg = img.getScaledInstance(100, 150,Image.SCALE_SMOOTH); 
-        image = new ImageIcon(newimg); // set the type of it back to a ImageIcon
-        this.setIcon(image); // Set it as the background of the JLabel.
-        this.updateUI(); 
+        Image newimg = img.getScaledInstance(100, 150,Image.SCALE_SMOOTH);
+        // set the type of it back to a ImageIcon
+        image = new ImageIcon(newimg);
+        // Set it as the background of the JLabel.
+        this.setIcon(image);
+        this.updateUI();
         return this;
     }
 
     /**
      * Reveals the front of the card by updating its image.
      */
-    public void reveal() { 
+    public void reveal() {
         ImageIcon image = new ImageIcon(getImagePath());
         Image img = image.getImage();
         Image newimg = img.getScaledInstance(100, 150,Image.SCALE_SMOOTH);
