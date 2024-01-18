@@ -29,7 +29,7 @@ public class Main extends JFrame {
         this.getContentPane().removeAll();
         this.repaint();
         // If the deck size is smaller then 70 then "shuffle".
-        if (deck.getDeck().size() < 70){
+        if (deck.getDeck().size() < 70) {
             System.out.println("shuffling");
             deck = new Deck();
         }
